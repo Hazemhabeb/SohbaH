@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Sohba</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="or">or</string>
+    <string name="drawer_open">DrawerOpen</string>
+    <string name="drawer_close">DrawerClosed</string>
+</resources>

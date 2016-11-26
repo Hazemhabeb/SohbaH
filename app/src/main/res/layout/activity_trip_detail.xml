@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:fitsSystemWindows="true"
+                                                 >
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:fitsSystemWindows="true"
+            >
+        <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/trip_fayoum"
+                    />
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                     >
+                <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:tint="#fff"
+                        android:id="@+id/back"
+                        android:src="@drawable/back"
+                        />
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                xmlns:tools="http://schemas.android.com/tools"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="match_parent"
+                                                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                                tools:context="com.asi.resohba.ProgrameDetial"
+                                               >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="500dp"
+
+                >
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:background="#f3f3f3"
+                    >
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:orientation="vertical"
+                        android:layout_margin="16dp"
+                        >
+                    <com.sohba_travel.sohba.UI.SohbaTextView
+                            android:id="@+id/nameTrip_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Pyramid"
+                            android:textColor="#000"
+                            android:textSize="20sp"
+                            />
+                    <com.sohba_travel.sohba.UI.SohbaTextView
+                            android:id="@+id/city_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cairo - Giza"
+                            android:layout_marginTop="5dp"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        >
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp"
+                            android:weightSum=".5"
+                            >
+                        <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="50dp"
+                                android:layout_weight=".2"
+                                android:src="@drawable/good"
+                                />
+                        <com.sohba_travel.sohba.UI.SohbaTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight=".3"
+                                android:layout_marginLeft="6dp"
+                                android:layout_marginStart="6dp"
+                                android:layout_gravity="center_vertical"
+                                android:text="Good"
+                                />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="hosted by"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:id="@+id/view2"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/host_image"
+                        android:background="@drawable/image_border_main"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/view2"
+                        android:layout_toEndOf="@+id/view2"
+                        android:src="@drawable/ma_profile_png"
+                        />
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout"
+                        android:layout_marginLeft="16dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@+id/host_image"
+                        android:layout_toEndOf="@+id/host_image">
+
+                    <com.sohba_travel.sohba.UI.SohbaTextView
+                            android:id="@+id/host_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Name"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#000"
+                            android:textSize="20sp"
+                            />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#f3f3f3"
+                    android:layout_marginTop="6dp"
+                    />
+            <com.sohba_travel.sohba.UI.SohbaTextView
+                    android:id="@+id/summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The most famous Egyptian pyramids are those found at Giza, on the outskirts of Cairo. Several of the Giza pyramids are counted among the largest structures ever built. The Pyramid of Khufu at Giza is the largest Egyptian pyramid. It is the only one of the Seven Wonders of the Ancient World still in existence."
+                    android:layout_margin="16dp"
+                    android:textSize="15sp"
+                    />
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#f3f3f3"
+                    android:layout_marginTop="6dp"
+                    />
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    >
+                <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Type"
+                        />
+                <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:id="@+id/type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Group"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="10dp"
+                        />
+
+                <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Duration"
+                        />
+                <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:id="@+id/duration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="09:00 AM -12:00 PM"
+                        android:textColor="#000"
+                        android:textSize="18sp"
+                        />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginBottom="30dp"/>
+        </LinearLayout>
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <Button
+            android:id="@+id/book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="book now 50 EGP"
+            android:background="#F44336"
+            android:onClick="book"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            android:textSize="20sp"
+            />
+</android.support.design.widget.CoordinatorLayout>
