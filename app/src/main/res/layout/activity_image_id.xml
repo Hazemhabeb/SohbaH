@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_pr">
+
+    <LinearLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/photo_camera" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="40dp"
+            android:text="ID Card"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="130dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp">
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/image_border" />
+
+                <ImageView
+                    android:id="@+id/imageHolder1"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:onClick="imageHolder1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/takephoto" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="130dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/image_border" />
+
+                <ImageView
+                    android:id="@+id/imageHolder2"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:onClick="imageHolder2"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/takephoto" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Take a picture of your ID Card (Back and Front Sides Needed !)"
+            android:textColor="#fff"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/countinue"
+            android:onClick="goToNext"/>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

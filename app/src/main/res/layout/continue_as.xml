@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_pr">
+
+    <LinearLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:padding="4dp"
+                android:layout_height="45dp"
+                android:src="@drawable/guest_inter"
+                android:layout_marginRight="10dp"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/signupbackground"
+                android:onClick="signupGuest"
+                android:text="Guest"
+                android:paddingRight="60dp"
+                android:paddingLeft="60dp"
+                android:textAllCaps="false"
+                android:textColor="#FEB057"
+                android:textSize="15sp"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="@string/guest_note"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="30dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/host_inter"
+                android:layout_marginRight="10dp"/>
+            <Button
+                android:id="@+id/signupbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/signupbackground"
+                android:onClick="signupHost"
+                android:text="Host"
+                android:paddingRight="60dp"
+                android:paddingLeft="60dp"
+                android:textAllCaps="false"
+                android:textColor="#F22C18"
+                android:textSize="15sp"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#fff"
+            android:text="@string/guest_note"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginBottom="30dp"/>
+
+    </LinearLayout>
+
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/city" />-->
+</FrameLayout>

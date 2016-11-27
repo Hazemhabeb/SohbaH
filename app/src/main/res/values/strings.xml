@@ -5,4 +5,19 @@
     <string name="or">or</string>
     <string name="drawer_open">DrawerOpen</string>
     <string name="drawer_close">DrawerClosed</string>
+    <string name="font_regular">Montserrat-Regular.otf</string>
+
+    <string name="email">DISCOVER</string>
+    <string name="calender">EXPERIENCE </string>
+    <string name="shopping">FRIENDSHIP</string>
+    <string name="social_network">DIVERSITY </string>
+
+    <string name="email_hint">another culture, engage with local people and fully absorb the sounds, smells, food, and language</string>
+    <string name="calender_hint"> travel like you have never before</string>
+    <string name="shopping_hint">Make new friends and meet new people</string>
+    <string name="social_network_hint">Different choices to meet your needs</string>
+    <string name="skip">SKIP</string>
+
+    <string name="guest_note">Note: Being guest you are able to  book and visit places with other people</string>
+    <string name="host_note">Note: Being Host you are able to make trips with other people and gain money</string>
 </resources>

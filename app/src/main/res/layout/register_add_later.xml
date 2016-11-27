@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back_pr"
+    android:orientation="vertical">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/parent_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/details"
+                android:layout_marginTop="60dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="30dp"
+                android:text="Detials"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <EditText
+                android:id="@+id/job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:gravity="left"
+                android:hint="Job"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:scrollbars="horizontal"
+                android:textColor="#fff"
+                android:textColorHint="#FFF"
+                android:textSize="15sp" />
+
+
+            <EditText
+                android:paddingLeft="5dp"
+                android:id="@+id/national"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:gravity="left"
+                android:hint="Nationality"
+                android:maxLines="3"
+                android:scrollbars="horizontal"
+                android:textColor="#fff"
+                android:textColorHint="#FFF"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="Language"
+                android:textColor="#fff"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/parent_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <EditText
+                    android:id="@+id/language"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:ellipsize="end"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="select"
+                    android:maxLines="3"
+                    android:layout_marginLeft="30dp"
+                    android:scrollbars="horizontal"
+                    android:textColor="#fff"
+                    android:textColorHint="#FFF"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:text="Interests"
+                android:textColor="#fff"
+                android:textSize="15sp" />
+
+            <com.sohba_travel.sohba.Views.WrappingGridView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:clipToPadding="false"
+                android:gravity="center"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:numColumns="3"
+                android:verticalSpacing="4dp" />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/add_interest_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/input_interest"
+                android:text="ADD"
+                android:textAllCaps="false"
+                android:textColor="#B3E5FC"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:layout_width="65dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="30dp"
+                android:onClick="goToNext"
+                android:src="@drawable/countinue" />
+
+
+            <Button
+                android:id="@+id/Btn_register"
+                android:layout_width="130dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/input_sign_up"
+                android:onClick="goToNext"
+                android:text="Add Later"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

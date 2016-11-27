@@ -6,4 +6,7 @@
     <dimen name="tab_padding_bottom">16dp</dimen>
     <dimen name="tab_label">14sp</dimen>
     <dimen name="custom_tab_layout_height">72dp</dimen>
+    <dimen name="viewpager_circleindicator_radius">4.5dp</dimen>
+    <dimen name="padding_normal">8dp</dimen>
+    <dimen name="round_rect_radius">8dp</dimen>
 </resources>
