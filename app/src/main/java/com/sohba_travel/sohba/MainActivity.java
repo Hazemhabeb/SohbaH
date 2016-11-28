@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,10 +18,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.sohba_travel.sohba.intro.Intro;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements    NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -35,6 +40,17 @@ public class MainActivity extends AppCompatActivity implements    NavigationView
             R.drawable.ic_recent
     };
 
+    // Firebase instance variables
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+
+
+    // [START declare_auth_listener]
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+    // [END declare_auth]
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,24 +63,50 @@ public class MainActivity extends AppCompatActivity implements    NavigationView
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-        mDrawer= (NavigationView) findViewById(R.id.nvView);
+        mDrawer = (NavigationView) findViewById(R.id.nvView);
         mDrawer.setNavigationItemSelectedListener(this);
-        mDrawerLayout= (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerToggle=new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
+        // [START initialize_auth]
+        mAuth = FirebaseAuth.getInstance();
+        // [END initialize_auth]
+
+
+
+        // [START auth_state_listener]
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+
+                } else {
+
+                    // User is signed out
+                    startActivity(new Intent(MainActivity.this, Intro.class));
+                }
+                // [START_EXCLUDE]
+                // [END_EXCLUDE]
+            }
+        };
+
+
     }
+
     private void itemSelection(int mSelectedId) {
 
-        switch(mSelectedId){
+        switch (mSelectedId) {
 
             case R.id.item_navigation_profile:
                 mDrawerLayout.closeDrawer(GravityCompat.START);
-                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 break;
 
 
@@ -77,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements    NavigationView
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "");
@@ -90,16 +133,18 @@ public class MainActivity extends AppCompatActivity implements    NavigationView
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         //save selected item so it will remains same even after orientation change
-        outState.putInt("SELECTED_ID",mSelectedId);
+        outState.putInt("SELECTED_ID", mSelectedId);
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);
-        mSelectedId=menuItem.getItemId();
+        mSelectedId = menuItem.getItemId();
         itemSelection(mSelectedId);
         return true;
     }

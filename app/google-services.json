@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "275339128859",
+    "firebase_url": "https://sohba-717ca.firebaseio.com",
+    "project_id": "sohba-717ca",
+    "storage_bucket": "sohba-717ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275339128859:android:8b4abced20e0f4e3",
+        "android_client_info": {
+          "package_name": "com.sohba_travel.sohba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "275339128859-hrhpp4u5djs3hbabgftqt3gkibo5efpi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sohba_travel.sohba",
+            "certificate_hash": "A3C50694B5E42DD82A81D49D6B58F8589E08117C"
+          }
+        },
+        {
+          "client_id": "275339128859-i9nsrumjtsjqsrofsu93l8ga8dfrp2j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNX-XiWLZ6ArfmSaG-zk5xI77A9z1Aq8M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "275339128859-i9nsrumjtsjqsrofsu93l8ga8dfrp2j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
