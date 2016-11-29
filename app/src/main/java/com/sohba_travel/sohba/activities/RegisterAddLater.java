@@ -3,6 +3,7 @@ package com.sohba_travel.sohba.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ public class RegisterAddLater extends AppCompatActivity {
     private GridView listView1;
     static ItemAdabter adapter;
     static ArrayList<Item> users;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,7 @@ public class RegisterAddLater extends AppCompatActivity {
                 };
         users = new ArrayList<>();
 
-        for (int i=0;i<User.length;i++){
+        for (int i = 0; i < User.length; i++) {
             users.add(User[i]);
         }
         adapter = new ItemAdabter(this,
@@ -166,7 +168,7 @@ public class RegisterAddLater extends AppCompatActivity {
         }
     }
 
-    public void goToNext(View view){
+    public void goToNext(View view) {
 //        if (email.isEmpty() || password.isEmpty()) {
 //            Toast.makeText(RegisterAddLater.this, "email empty or pass", Toast.LENGTH_LONG).show();
 //            return;
@@ -188,7 +190,10 @@ public class RegisterAddLater extends AppCompatActivity {
 //                            Toast.makeText(RegisterAddLater.this, "created",
 //                                    Toast.LENGTH_SHORT).show();
 //
-                            startActivity(new Intent(RegisterAddLater.this, MainActivity.class));
+        Intent i=new Intent(RegisterAddLater.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+
 //
 //                            mFirebaseUser = mAuth.getCurrentUser();
 //                            user_id = mFirebaseUser.getUid();
@@ -228,7 +233,6 @@ public class RegisterAddLater extends AppCompatActivity {
 //    (String uId, String type, String fName, String lName, String birthdate, String gender, String mobile, String email,
 //    String language, String verified, String profileImage, String frontIdImage,
 //    String backIdImage, String selfieImage, String interests, String nationality, String job) {
-
 
 
 }

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -380,8 +381,8 @@ public class ActivityProfileImage extends AppCompatActivity {
         pDialog.hide();
         Intent i=new Intent(ActivityProfileImage.this, RegisterAddLater.class);
         i.putExtra(RegisterData.User_id,user_id);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
-        finish();
 
 
     }

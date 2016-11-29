@@ -7,6 +7,10 @@
                 android:id="@+id/item_navigation_profile"
                 android:icon="@drawable/ic_profile"
                 android:title="Profile"/>
+        <item
+            android:id="@+id/logout_lm"
+            android:title="Logout"
+            android:icon="@drawable/logout_icon"/>
 
 
     </group>

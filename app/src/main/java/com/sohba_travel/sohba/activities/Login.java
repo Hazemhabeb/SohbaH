@@ -3,6 +3,7 @@ package com.sohba_travel.sohba.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -97,8 +98,9 @@ public class Login extends AppCompatActivity {
                         }else{
                             Toast.makeText(getApplicationContext(), "login sucess", Toast.LENGTH_LONG)
                                     .show();
-                            startActivity(new Intent(Login.this, MainActivity.class));
-                            finish();
+                            Intent i=new Intent(Login.this, MainActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
                         }
 
 
