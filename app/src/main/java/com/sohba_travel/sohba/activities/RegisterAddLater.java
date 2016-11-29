@@ -1,6 +1,7 @@
 package com.sohba_travel.sohba.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
+import com.sohba_travel.sohba.MainActivity;
 import com.sohba_travel.sohba.R;
+import com.sohba_travel.sohba.Utility.RegisterData;
 import com.sohba_travel.sohba.Utility.font;
 import com.sohba_travel.sohba.adapters.ItemAdabter;
 import com.sohba_travel.sohba.models.Item;
@@ -21,18 +24,6 @@ public class RegisterAddLater extends AppCompatActivity {
     public static String nationals = "pasf";
     public static String languaes = "fasfi23";
     public static String jobs = "sadaoer9";
-    private static int userType;
-    private static String imageProfile;
-    private static String imageSelfie;
-    private static String imageid1;
-    private static String imageid2;
-    private static String firstname;
-    private static String lastname;
-    private static String birthdate;
-    private static String gender;
-    private static String email;
-    private static String phone;
-    private static String password;
 
     EditText national;
     EditText language;
@@ -63,14 +54,8 @@ public class RegisterAddLater extends AppCompatActivity {
                 showMultiChoiceListAlertDialog(list);
             }
         });
-//        national.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showMultiChoiceListAlertDialog();
-//            }
-//        });
 
-
+        user_id = getIntent().getStringExtra(RegisterData.User_id);
         font font = new font();
         font.changeFonts(this, (LinearLayout) findViewById(R.id.parent_layout));
         font.changeFonts(this, (LinearLayout) findViewById(R.id.parent_layout1));
@@ -203,7 +188,7 @@ public class RegisterAddLater extends AppCompatActivity {
 //                            Toast.makeText(RegisterAddLater.this, "created",
 //                                    Toast.LENGTH_SHORT).show();
 //
-//                            startActivity(new Intent(RegisterAddLater.this, DetialFive_interest.class));
+                            startActivity(new Intent(RegisterAddLater.this, MainActivity.class));
 //
 //                            mFirebaseUser = mAuth.getCurrentUser();
 //                            user_id = mFirebaseUser.getUid();

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.sohba_travel.sohba.R;
+import com.sohba_travel.sohba.Utility.RegisterData;
 import com.sohba_travel.sohba.Utility.font;
 import com.squareup.picasso.Picasso;
 
@@ -38,6 +39,16 @@ public class RegisterTakeSelfie extends AppCompatActivity {
 
 
 
+    //data from intent
+    private static String fn;
+    private static String ln;
+    private static String ph;
+    private static String pass = "";
+    private static String mail = "";
+    private static String gen;
+    private static String birth;
+    private static String profile_image;
+    private static  byte[] byteArray_profile;
 
 
 
@@ -69,8 +80,17 @@ public class RegisterTakeSelfie extends AppCompatActivity {
         imageHolder= (ImageView) findViewById(R.id.imageHolder);
 
 
+
         status = getIntent().getIntExtra(ContinueAs_activity.ContinueAs_activityS, 0);
-        imageProfile=getIntent().getStringExtra(ActivityProfileImage.ActivityProfileImageS);
+        fn = getIntent().getStringExtra(RegisterData.fn);
+        ln = getIntent().getStringExtra(RegisterData.ln);
+        ph = getIntent().getStringExtra(RegisterData.ph);
+        pass = getIntent().getStringExtra(RegisterData.pass);
+        mail = getIntent().getStringExtra(RegisterData.mail);
+        gen = getIntent().getStringExtra(RegisterData.gen);
+        birth = getIntent().getStringExtra(RegisterData.birth);
+        byteArray_profile = getIntent().getByteArrayExtra(RegisterData.image_profile);
+
 
 
         font font = new font();
@@ -185,13 +205,19 @@ public class RegisterTakeSelfie extends AppCompatActivity {
 
 //        Toast.makeText(context,imageProfile,Toast.LENGTH_LONG).show();
 
-//        Intent i=new Intent(RegisterTakeSelfie.this,ImageIdActivity.class);
-//        i.putExtra(ContinueAs_activity.ContinueAs_activityS,1);
-//        i.putExtra(ActivityProfileImage.ActivityProfileImageS,imageProfile);
-//        i.putExtra(RegisterTakePhotos,ba1);
-//
-//        startActivity(i);
-        startActivity(new Intent(RegisterTakeSelfie.this,ImageIdActivity.class));
+        Intent i=new Intent(RegisterTakeSelfie.this,ImageIdActivity.class);
+        i.putExtra(ContinueAs_activity.ContinueAs_activityS, status);
+        i.putExtra(RegisterData.fn, fn);
+        i.putExtra(RegisterData.ln, ln);
+        i.putExtra(RegisterData.pass, pass);
+        i.putExtra(RegisterData.birth, birth);
+        i.putExtra(RegisterData.gen, gen);
+        i.putExtra(RegisterData.ph, ph);
+        i.putExtra(RegisterData.mail, mail);
+        i.putExtra(RegisterData.image_profile, byteArray_profile);
+        i.putExtra(RegisterData.image_selfie, byteArray);
 
+
+        startActivity(i);
     }
 }
