@@ -9,7 +9,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@null" />
-    <com.sohba_travel.sohba.intro.CirclePageIndicator
+
+    <com.sohba_travel.sohba.Intro.CirclePageIndicator
         android:id="@+id/indicator"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

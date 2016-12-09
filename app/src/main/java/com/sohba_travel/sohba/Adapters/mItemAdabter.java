@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.adapters;
+package com.sohba_travel.sohba.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,20 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.sohba_travel.sohba.Models.mItem;
 import com.sohba_travel.sohba.R;
-import com.sohba_travel.sohba.models.Item;
 
 import java.util.ArrayList;
 
-
-
-public class ItemAdabter extends ArrayAdapter<Item> {
+/**
+ * Created by M on 12/8/2016.
+ */
+public class mItemAdabter extends ArrayAdapter<mItem> {
     Context context;
     int layoutResourceId;
-    ArrayList<Item> data = null;
-    ItemAdabter adabter=this;
+    ArrayList<mItem> data = null;
+    mItemAdabter adabter = this;
 
-    public ItemAdabter(Context context, int layoutResourceId, ArrayList<Item> data) {
+    public mItemAdabter(Context context, int layoutResourceId, ArrayList<mItem> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -33,25 +34,20 @@ public class ItemAdabter extends ArrayAdapter<Item> {
         View row = convertView;
         UserHolder holder = null;
 
-        if(row == null)
-        {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        if (row == null) {
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new UserHolder();
-            holder.button_interest= (Button) row.findViewById(R.id.button_interest);
-
-
+            holder.button_interest = (Button) row.findViewById(R.id.button_interest);
 
 
             row.setTag(holder);
-        }
-        else
-        {
-            holder = (UserHolder)row.getTag();
+        } else {
+            holder = (UserHolder) row.getTag();
         }
 
-        Item myData = data.get(position);
+        mItem myData = data.get(position);
         holder.button_interest.setText(myData.getInterest());
 
 //        holder.remove.setOnClickListener(new View.OnClickListener() {
@@ -65,8 +61,8 @@ public class ItemAdabter extends ArrayAdapter<Item> {
 
         return row;
     }
-    static class UserHolder
-    {
+
+    static class UserHolder {
         Button button_interest;
 
     }

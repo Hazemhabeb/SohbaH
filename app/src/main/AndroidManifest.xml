@@ -13,7 +13,7 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -21,8 +21,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".intro.Intro"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+                android:name=".Intro.Intro"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,36 +30,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ContinueAs_activity"
-            android:theme="@style/AppTheme_login"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+                android:name=".Activities.ContinueAs_activity"
+                android:theme="@style/AppTheme_login"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
-            android:name=".activities.RegisterNew"
-            android:theme="@style/AppTheme_login"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+                android:name=".Activities.RegisterNew"
+                android:theme="@style/AppTheme_login"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
-            android:name=".activities.RegisterAddLater"
-            android:theme="@style/AppTheme_login"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+                android:name=".Activities.RegisterAddLater"
+                android:theme="@style/AppTheme_login"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
-            android:name=".activities.RegisterTakeSelfie"
-            android:theme="@style/AppTheme_login" />
+                android:name=".Activities.RegisterTakeSelfie"
+                android:theme="@style/AppTheme_login"/>
 
         <activity
-            android:name=".activities.ImageIdActivity"
-            android:theme="@style/AppTheme_login" />
+                android:name=".Activities.ImageIdActivity"
+                android:theme="@style/AppTheme_login"/>
         <activity
-            android:name=".activities.ActivityProfileImage"
-            android:theme="@style/AppTheme_login"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+                android:name=".Activities.ActivityProfileImage"
+                android:theme="@style/AppTheme_login"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
-            android:name=".activities.Login"
-            android:label="Sohba"
-            android:theme="@style/AppTheme_login"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ProfileActivity">
+                android:name=".Activities.Login"
+                android:label="Sohba"
+                android:theme="@style/AppTheme_login"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".Activities.ProfileActivity">
         </activity>
-        <activity android:name=".TripDetailActivity">
+        <activity android:name=".Activities.TripDetailActivity">
         </activity>
     </application>
 

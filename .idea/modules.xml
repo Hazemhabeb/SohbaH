@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Sohba.iml" filepath="$PROJECT_DIR$/Sohba.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SohbaApp.iml" filepath="$PROJECT_DIR$/SohbaApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

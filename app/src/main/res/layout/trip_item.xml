@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    android:layout_width="match_parent"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/tripCard"
+                                    app:cardBackgroundColor="#f3f3f3"
+                                    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                <ImageView
+                        android:id="@+id/program_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/pyramid"/>
+
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/black_bar"/>
+
+                <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:id="@+id/salary_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:layout_marginTop="20dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:background="#fff"
+                        android:layout_marginBottom="30dp"
+                        android:textColor="#000"
+                        android:text="30 EGP"
+                        android:layout_gravity="right|center_vertical"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="90dp"
+                        android:layout_gravity="bottom"
+                        android:padding="3dp">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="10dp"
+                            >
+
+                        <com.sohba_travel.sohba.UI.SohbaTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Pyramid"
+                                android:textColor="#fff"
+                                android:id="@+id/placename"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                />
+
+                        <com.sohba_travel.sohba.UI.SohbaTextView
+                                android:id="@+id/city_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="cairo-Giza"
+                                android:textColor="#fff"
+                                android:textSize="15sp"
+                                android:layout_marginTop="2dp"
+                                />
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="wrap_content">
+
+                        <RatingBar
+                                android:id="@+id/ratingBar"
+                                style="?android:attr/ratingBarStyleSmall"
+                                android:progressTint="#fff"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:rating="5"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <com.sohba_travel.sohba.Views.CircleImageView
+                        android:id="@+id/host_image"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginLeft="16dp"
+                        android:background="@drawable/image_border_main"
+                        android:layout_marginBottom="16dp"
+                        android:padding="3dp"
+                        android:src="@drawable/male_profile"
+                        android:layout_gravity="left|bottom"/>
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
