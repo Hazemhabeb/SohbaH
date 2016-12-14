@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.activities;
+package com.sohba_travel.sohba.Activities;
 
 import android.content.Context;
 import android.content.Intent;

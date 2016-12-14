@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.activities;
+package com.sohba_travel.sohba.Activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -36,7 +36,7 @@ import com.google.firebase.storage.UploadTask;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.Utility.RegisterData;
 import com.sohba_travel.sohba.Utility.font;
-import com.sohba_travel.sohba.models.NewUserGuest;
+import com.sohba_travel.sohba.Models.NewUserGuest;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;

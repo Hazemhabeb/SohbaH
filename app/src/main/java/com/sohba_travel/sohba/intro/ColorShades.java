@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.intro;
+package com.sohba_travel.sohba.Intro;
 
 import android.graphics.Color;
 

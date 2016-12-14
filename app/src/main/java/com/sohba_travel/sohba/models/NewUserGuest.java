@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.models;
+package com.sohba_travel.sohba.Models;
 
 /**
  * Created by hazem on 11/26/2016.

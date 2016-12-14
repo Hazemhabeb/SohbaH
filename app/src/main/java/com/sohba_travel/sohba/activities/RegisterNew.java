@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.activities;
+package com.sohba_travel.sohba.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;

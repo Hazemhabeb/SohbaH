@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.activities;
+package com.sohba_travel.sohba.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,12 +10,11 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
-import com.sohba_travel.sohba.MainActivity;
+import com.sohba_travel.sohba.Adapters.mItemAdabter;
+import com.sohba_travel.sohba.Models.mItem;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.Utility.RegisterData;
 import com.sohba_travel.sohba.Utility.font;
-import com.sohba_travel.sohba.adapters.ItemAdabter;
-import com.sohba_travel.sohba.models.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +38,8 @@ public class RegisterAddLater extends AppCompatActivity {
 
 
     private GridView listView1;
-    static ItemAdabter adapter;
-    static ArrayList<Item> users;
+    static mItemAdabter adapter;
+    static ArrayList<mItem> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,23 +62,23 @@ public class RegisterAddLater extends AppCompatActivity {
         font.changeFonts(this, (LinearLayout) findViewById(R.id.parent_layout1));
 
 
-        Item User[] = new Item[]
+        mItem User[] = new mItem[]
                 {
-//                        new Item("Food"),
-//                        new Item( "Art"),
-//                        new Item("Friendship"),
-//                        new Item("Music"),
-//                        new Item("Reading"),
-//                        new Item("Programming"),
-//                        new Item("Football"),
-//                        new Item("Swimming")
+//                        new mItem("Food"),
+//                        new mItem( "Art"),
+//                        new mItem("Friendship"),
+//                        new mItem("Music"),
+//                        new mItem("Reading"),
+//                        new mItem("Programming"),
+//                        new mItem("Football"),
+//                        new mItem("Swimming")
                 };
         users = new ArrayList<>();
 
         for (int i = 0; i < User.length; i++) {
             users.add(User[i]);
         }
-        adapter = new ItemAdabter(this,
+        adapter = new mItemAdabter(this,
                 R.layout.interest_item, users);
         listView1 = (GridView) findViewById(R.id.listView1);
 

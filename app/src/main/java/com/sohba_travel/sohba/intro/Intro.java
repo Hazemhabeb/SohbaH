@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.intro;
+package com.sohba_travel.sohba.Intro;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -18,14 +18,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sohba_travel.sohba.R;
-import com.sohba_travel.sohba.activities.Login;
+import com.sohba_travel.sohba.Activities.Login;
 
 
 public class Intro extends AppCompatActivity {
 
     private static final String SAVING_STATE_SLIDER_ANIMATION = "SliderAnimationSavingState";
     private boolean isSliderAnimation = false;
-    private font setFont;
+
+    //    private font setFont;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +36,8 @@ public class Intro extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
         //change font
 
-        setFont=new font();
-        setFont.changeFonts(getApplicationContext(),(RelativeLayout)findViewById(R.id.landing_backgrond));
+//        setFont=new font();
+//        setFont.changeFonts(getApplicationContext(),(RelativeLayout)findViewById(R.id.landing_backgrond));
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
 
         viewPager.setAdapter(new ViewPagerAdapter(R.array.icons, R.array.titles, R.array.hints));
@@ -45,7 +46,7 @@ public class Intro extends AppCompatActivity {
         mIndicator.setViewPager(viewPager);
 
 
-        setFont.changeFonts(Intro.this,(LinearLayout)findViewById(R.id.pagerid));
+//        setFont.changeFonts(Intro.this,(LinearLayout)findViewById(R.id.pagerid));
 
         viewPager.setPageTransformer(true, new CustomPageTransformer());
 
@@ -125,7 +126,7 @@ public class Intro extends AppCompatActivity {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((RelativeLayout) object);
-            setFont.changeFonts(getApplicationContext(),(LinearLayout)findViewById(R.id.pagerid));
+//            setFont.changeFonts(getApplicationContext(),(LinearLayout)findViewById(R.id.pagerid));
         }
     }
 
