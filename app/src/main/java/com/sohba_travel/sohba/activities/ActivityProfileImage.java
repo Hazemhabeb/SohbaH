@@ -33,10 +33,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.sohba_travel.sohba.Models.NewUserGuest;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.Utility.RegisterData;
 import com.sohba_travel.sohba.Utility.font;
-import com.sohba_travel.sohba.Models.NewUserGuest;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -108,7 +108,7 @@ public class ActivityProfileImage extends AppCompatActivity {
         imageHolder = (ImageView) findViewById(R.id.imageHolder);
 
 
-        status = getIntent().getIntExtra(ContinueAs_activity.ContinueAs_activityS, 0);
+        status = getIntent().getIntExtra(com.sohba_travel.sohba.Activities.ContinueAs_activity.ContinueAs_activityS, 0);
         fn = getIntent().getStringExtra(RegisterData.fn);
         ln = getIntent().getStringExtra(RegisterData.ln);
         ph = getIntent().getStringExtra(RegisterData.ph);

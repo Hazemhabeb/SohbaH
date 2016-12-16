@@ -1,15 +1,5 @@
 package com.sohba_travel.sohba.Activities;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -26,9 +16,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.github.javiersantos.bottomdialogs.BottomDialog;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.sohba_travel.sohba.Adapters.TimelineAdapter;
-import com.sohba_travel.sohba.Models.Timeline;
-import com.sohba_travel.sohba.Models.Trip;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.UI.SohbaEditText;
 import com.vansuita.pickimage.PickImageDialog;
@@ -68,10 +65,10 @@ public class AddTrip extends AppCompatActivity implements IPickResult {
     @BindView(R.id.rvTimeline)
     RecyclerView rvTimeline;
     private StorageReference mStorageRef;
-    HashMap<String, Timeline> timelineHashMap = new HashMap<String, Timeline>();
+    HashMap<String, com.sohba_travel.sohba.Models.Timeline> timelineHashMap = new HashMap<String, com.sohba_travel.sohba.Models.Timeline>();
     View customView;
     TimelineAdapter timelineAdapter;
-    List<Timeline> timelines = new ArrayList<>();
+    List<com.sohba_travel.sohba.Models.Timeline> timelines = new ArrayList<>();
     BottomDialog bottomDialog;
     String tripId = "trip:" + random();
     private FirebaseAuth mAuth;
@@ -122,9 +119,9 @@ public class AddTrip extends AppCompatActivity implements IPickResult {
                 bAdd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        timelines.add(new Timeline(etFrom.getText().toString(), etTo.getText().toString(), etDescritopn.getText().toString()));
+                        timelines.add(new com.sohba_travel.sohba.Models.Timeline(etFrom.getText().toString(), etTo.getText().toString(), etDescritopn.getText().toString()));
                         timelineAdapter.notifyDataSetChanged();
-                        timelineHashMap.put(etFrom.getText().toString() + "-" + etTo.getText().toString(), new Timeline(etFrom.getText().toString(), etTo.getText().toString(), etDescritopn.getText().toString()));
+                        timelineHashMap.put(etFrom.getText().toString() + "-" + etTo.getText().toString(), new com.sohba_travel.sohba.Models.Timeline(etFrom.getText().toString(), etTo.getText().toString(), etDescritopn.getText().toString()));
                         bottomDialog.dismiss();
                     }
                 });
@@ -135,7 +132,7 @@ public class AddTrip extends AppCompatActivity implements IPickResult {
                 DatabaseReference myRef = database.getReference("trips").child(tripId);
                 progressDialog.setTitle("Adding Trip");
                 progressDialog.show();
-                Trip trip = new Trip(
+                com.sohba_travel.sohba.Models.Trip trip = new com.sohba_travel.sohba.Models.Trip(
                         tripId, user.getUid(),
                         etTripDescrition.getText().toString(),
                         etTripName.getText().toString(),
