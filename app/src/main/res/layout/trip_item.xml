@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    android:layout_width="match_parent"
                                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
                                     android:id="@+id/tripCard"
                                     app:cardBackgroundColor="#f3f3f3"
+                                    android:clickable="true"
+                                    android:foreground="?attr/selectableItemBackground"
                                     android:layout_height="wrap_content">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +20,7 @@
 
             <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="250dp">
+                    android:layout_height="230dp">
 
                 <ImageView
                         android:id="@+id/program_image"
@@ -69,7 +71,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Pyramid"
                                 android:textColor="#fff"
-                                android:id="@+id/placename"
+                                android:id="@+id/tripName"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
                                 />

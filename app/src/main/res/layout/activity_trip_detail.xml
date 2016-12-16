@@ -16,11 +16,12 @@
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:expandedTitleMarginBottom="70dp"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
             <ImageView
-                    android:id="@+id/image"
+                    android:id="@+id/ivTripImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -32,13 +33,6 @@
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                      >
-                <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:tint="#fff"
-                        android:id="@+id/back"
-                        android:src="@drawable/back"
-                        />
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -48,15 +42,25 @@
                                                 xmlns:tools="http://schemas.android.com/tools"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="match_parent"
+                                                app:behavior_overlapTop="64dp"
+                                                android:layout_marginRight="16dp"
+                                                android:layout_marginLeft="16dp"
                                                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                                                 tools:context="com.asi.resohba.ProgrameDetial"
                                                >
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:app="http://schemas.android.com/tools"
+                                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                            android:id="@+id/card_view"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            card_view:cardCornerRadius="4dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginBottom="500dp"
 
                 >
             <LinearLayout
@@ -73,16 +77,9 @@
                         android:orientation="vertical"
                         android:layout_margin="16dp"
                         >
+
                     <com.sohba_travel.sohba.UI.SohbaTextView
-                            android:id="@+id/nameTrip_detail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Pyramid"
-                            android:textColor="#000"
-                            android:textSize="20sp"
-                            />
-                    <com.sohba_travel.sohba.UI.SohbaTextView
-                            android:id="@+id/city_detail"
+                            android:id="@+id/tvTPlace"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Cairo - Giza"
@@ -93,30 +90,23 @@
                 <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".5"
+                        android:layout_weight="1"
+                        android:layout_marginRight="24dp"
                         >
                     <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="16dp"
-                            android:weightSum=".5"
+                            android:layout_marginTop="24dp"
                             >
-                        <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="50dp"
-                                android:layout_weight=".2"
-                                android:src="@drawable/good"
-                                />
-                        <com.sohba_travel.sohba.UI.SohbaTextView
-                                android:layout_width="0dp"
+
+                        <RatingBar
+                                android:id="@+id/DRatingBar"
+                                style="?android:attr/ratingBarStyleSmall"
+                                android:progressTint="@color/colorAccent"
+                                android:numStars="5"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight=".3"
-                                android:layout_marginLeft="6dp"
-                                android:layout_marginStart="6dp"
-                                android:layout_gravity="center_vertical"
-                                android:text="Good"
-                                />
+                                android:rating="5"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -138,7 +128,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        android:id="@+id/host_image"
+                        android:id="@+id/ivHostImage"
                         android:background="@drawable/image_border_main"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/view2"
@@ -150,18 +140,17 @@
                         android:layout_width="wrap_content"
                         android:orientation="vertical"
                         android:layout_height="wrap_content"
-                        android:id="@+id/linearLayout"
                         android:layout_marginLeft="16dp"
                         android:layout_alignParentTop="true"
-                        android:layout_toRightOf="@+id/host_image"
-                        android:layout_toEndOf="@+id/host_image">
+                        android:layout_toRightOf="@+id/ivHostImage"
+                        android:layout_toEndOf="@+id/ivHostImage">
 
                     <com.sohba_travel.sohba.UI.SohbaTextView
-                            android:id="@+id/host_name"
+                            android:id="@+id/tvHostName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Name"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="16dp"
                             android:textColor="#000"
                             android:textSize="20sp"
                             />
@@ -176,7 +165,7 @@
                     android:layout_marginTop="6dp"
                     />
             <com.sohba_travel.sohba.UI.SohbaTextView
-                    android:id="@+id/summary"
+                    android:id="@+id/tvDTripDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="The most famous Egyptian pyramids are those found at Giza, on the outskirts of Cairo. Several of the Giza pyramids are counted among the largest structures ever built. The Pyramid of Khufu at Giza is the largest Egyptian pyramid. It is the only one of the Seven Wonders of the Ancient World still in existence."
@@ -202,7 +191,7 @@
                         android:text="Type"
                         />
                 <com.sohba_travel.sohba.UI.SohbaTextView
-                        android:id="@+id/type"
+                        android:id="@+id/tvCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Group"
@@ -211,42 +200,29 @@
                         android:layout_marginBottom="10dp"
                         />
 
-                <com.sohba_travel.sohba.UI.SohbaTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Duration"
-                        />
-                <com.sohba_travel.sohba.UI.SohbaTextView
-                        android:id="@+id/duration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="09:00 AM -12:00 PM"
-                        android:textColor="#000"
-                        android:textSize="18sp"
-                        />
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
                     xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/recycler_view"
+                    android:id="@+id/rvDRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    android:layout_marginBottom="30dp"/>
+                    />
         </LinearLayout>
 
-
+        </android.support.v7.widget.CardView>
 
     </android.support.v4.widget.NestedScrollView>
 
 
     <Button
-            android:id="@+id/book"
+            android:id="@+id/bBooking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="book now 50 EGP"
             android:background="#F44336"
-            android:onClick="book"
             android:textColor="#fff"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
             android:textStyle="bold"
             android:layout_gravity="bottom"
             android:textSize="20sp"

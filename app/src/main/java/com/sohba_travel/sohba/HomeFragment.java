@@ -1,5 +1,12 @@
 package com.sohba_travel.sohba;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,9 +20,11 @@ import android.view.ViewGroup;
 
 import com.sohba_travel.sohba.Activities.AddTrip;
 import com.sohba_travel.sohba.Adapters.TripAdapter;
+import com.sohba_travel.sohba.Models.Timeline;
 import com.sohba_travel.sohba.Models.Trip;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -28,6 +37,7 @@ import butterknife.OnClick;
 public class HomeFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private List<Trip> mContentItems = new ArrayList<>();
+    HashMap<String, Timeline> timelineHashMap = new HashMap<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,20 +71,67 @@ public class HomeFragment extends Fragment {
         RecyclerView.LayoutManager
                 layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        prepareFakeData();
         mAdapter = new TripAdapter(mContentItems, getActivity());
         recyclerView.setAdapter(mAdapter);
+        prepareData();
 
 
     }
 
-    private void prepareFakeData() {
-        for (int i = 0; i < 20; i++) {
-            Trip trip = new Trip();
-            mContentItems.add(trip);
-        }
+    private void prepareData() {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("trips");
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                progressDialog.hide();
+                Trip trip = new Trip();
+                trip.tripDescription = ((String) dataSnapshot.child("description").getValue());
+                trip.tripId = ((String) dataSnapshot.child("tripId").getValue());
+                trip.tripImage = ((String) dataSnapshot.child("tripImage").getValue());
+                trip.tripName = ((String) dataSnapshot.child("tripName").getValue());
+                trip.tripPlace = ((String) dataSnapshot.child("tripPlace").getValue());
+                trip.tripPrice = ((String) dataSnapshot.child("tripPrice").getValue());
+                trip.tripRate = ((String) dataSnapshot.child("tripRate").getValue());
+                trip.tripType = ((String) dataSnapshot.child("tripType").getValue());
+                trip.userId = ((String) dataSnapshot.child("userId").getValue());
+                for (DataSnapshot timelinesnap : dataSnapshot.child("timelineHashMap").getChildren()) {
+                    Timeline timeline = timelinesnap.getValue(Timeline.class);
+                    timelineHashMap.put(timelinesnap.getKey(), timeline);
+
+                }
+                trip.timelineHashMap = timelineHashMap;
+                mContentItems.add(trip);
+                mAdapter.notifyDataSetChanged();
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
