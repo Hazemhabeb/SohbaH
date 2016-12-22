@@ -117,7 +117,7 @@ public class TripDetailActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("trips").child(trip.tripId).child("Booking").child(BookingId);
         myRef.setValue(new Booking(user.getUid(), BookingId, trip.userId, System.currentTimeMillis() + "", false, false, trip.tripId));
-        DatabaseReference myRNotifiaction = database.getReference("notifications").child(trip.userId);
+        DatabaseReference myRNotifiaction = database.getReference("hostNotifications").child(trip.userId);
         myRNotifiaction.setValue(new Notification(BookingId, NotifiactionId, trip.userId, user.getUid()));
 
 
