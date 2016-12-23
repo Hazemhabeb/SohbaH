@@ -14,18 +14,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.javiersantos.bottomdialogs.BottomDialog;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.sohba_travel.sohba.Adapters.TimelineAdapter;
+import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.UI.SohbaEditText;
 import com.vansuita.pickimage.PickImageDialog;
@@ -75,8 +80,13 @@ public class AddTrip extends AppCompatActivity implements IPickResult {
     FirebaseUser user;
     ProgressDialog progressDialog;
 
-    @Override
+    //this is to know if user virtifed or not
+    // firebase
+    private DatabaseReference mFirebaseDatabaseReference;
+    private static String userVertified;
 
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
@@ -85,6 +95,26 @@ public class AddTrip extends AppCompatActivity implements IPickResult {
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         user = mAuth.getCurrentUser();
+
+        // to know if user virtifed or not
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users")
+                .child(user.getUid().toString());
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                NewUserHost post = dataSnapshot.getValue(NewUserHost.class);
+                userVertified=post.getVerified();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mFirebaseDatabaseReference.addValueEventListener(postListener);
+        //end
+
+
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
         LinearLayoutManager horizontalLayoutManagaer
                 = new LinearLayoutManager(AddTrip.this, LinearLayoutManager.HORIZONTAL, false);
@@ -128,12 +158,26 @@ public class AddTrip extends AppCompatActivity implements IPickResult {
 
                 break;
             case R.id.bAddTrip:
+                if (!validate()){
+                    Toast.makeText(AddTrip.this,"plz fill all information",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (timelineHashMap.size()==0){
+                    Toast.makeText(AddTrip.this,"plz add the trip Timeline",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (imageUrl==null){
+                    Toast.makeText(AddTrip.this,"plz choose ",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("trips").child(tripId);
                 progressDialog.setTitle("Adding Trip");
                 progressDialog.show();
                 com.sohba_travel.sohba.Models.Trip trip = new com.sohba_travel.sohba.Models.Trip(
-                        tripId, user.getUid(),
+                        tripId, user.getUid(),userVertified,
                         etTripDescrition.getText().toString(),
                         etTripName.getText().toString(),
                         etCity.getText().toString(),
@@ -197,5 +241,13 @@ public class AddTrip extends AppCompatActivity implements IPickResult {
 
     }
 
+    private boolean validate(){
+        if (!etTripName.getText().toString().isEmpty()&&!etCity.getText().toString().isEmpty()
+                &&!etCity.getText().toString().isEmpty()&&!etCategory.getText().toString().isEmpty()
+                &&!etTripDescrition.getText().toString().isEmpty()&&!etDuration.getText().toString().isEmpty()){
+            return true;
+        }else
+            return false;
+    }
 
 }

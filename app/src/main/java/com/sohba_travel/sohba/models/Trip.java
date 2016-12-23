@@ -21,10 +21,14 @@ public class Trip implements Serializable {
     public HashMap<String, Timeline> timelineHashMap = new HashMap<String, Timeline>();
     public HashMap<String, SingleRating> RatingHashMap = new HashMap<String, SingleRating>();
 
+
+
+    //to know if user vertifed or not
+    public String userVertifed;
     public Trip() {
     }
 
-    public Trip(String tripId, String userId,
+    public Trip(String tripId, String userId,String userVertifed,
                 String tripDescription, String tripName,
                 String tripPlace, String tripType,
                 String tripPrice, String tripRate,
@@ -41,6 +45,7 @@ public class Trip implements Serializable {
         this.tripImage = tripImage;
         this.timelineHashMap = timelineHashMap;
         this.RatingHashMap = RatingHashMap;
+        this.userVertifed=userVertifed;
     }
 
 
