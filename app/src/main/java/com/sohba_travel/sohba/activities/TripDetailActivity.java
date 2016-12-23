@@ -1,25 +1,29 @@
 package com.sohba_travel.sohba.Activities;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.Adapters.TimelineAdapter;
 import com.sohba_travel.sohba.Models.Booking;
 import com.sohba_travel.sohba.Models.Notification;
@@ -27,8 +31,6 @@ import com.sohba_travel.sohba.Models.Timeline;
 import com.sohba_travel.sohba.Models.Trip;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.UI.SohbaTextView;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TripDetailActivity extends AppCompatActivity {
     Trip trip;
@@ -70,6 +73,11 @@ public class TripDetailActivity extends AppCompatActivity {
     String BookingId = "Booking: " + random();
     String NotifiactionId = "Notification: " + random();
 
+
+    // to know if i book this trip or not
+    // firebase
+    private DatabaseReference mFirebaseDatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +89,42 @@ public class TripDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(trip.tripName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // to know if i book this trip or not
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("trips").child(trip.tripId)
+                .child("Booking");
+
+        //this is make user book trip once only one
+        Query q=mFirebaseDatabaseReference.orderByChild("userBooking").equalTo(user.getUid());
+
+        q.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                bBooking.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         LinearLayoutManager horizontalLayoutManagaer
                 = new LinearLayoutManager(TripDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
         rvDRecyclerView.setLayoutManager(horizontalLayoutManagaer);
@@ -94,6 +138,8 @@ public class TripDetailActivity extends AppCompatActivity {
         tvCategory.setText(trip.tripType);
         tvDTripDescription.setText(trip.tripDescription);
         DRatingBar.setRating(Float.parseFloat(trip.tripRate));
+        bBooking.setText("book now "+trip.tripPrice+" EGP");
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(trip.userId);
         myRef.addValueEventListener(new ValueEventListener() {
@@ -114,12 +160,30 @@ public class TripDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.bBooking)
     public void onClick() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("trips").child(trip.tripId).child("Booking").child(BookingId);
-        myRef.setValue(new Booking(user.getUid(), BookingId, trip.userId, System.currentTimeMillis() + "", false, false, trip.tripId));
-        DatabaseReference myRNotifiaction = database.getReference("hostNotifications").child(trip.userId);
-        myRNotifiaction.setValue(new Notification(BookingId, NotifiactionId, trip.userId, user.getUid()));
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
 
+        adb.setTitle("Book A Trip");
+
+
+        adb.setIcon(R.mipmap.ic_launcher);
+        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("trips").child(trip.tripId).child("Booking").child(BookingId);
+                myRef.setValue(new Booking(user.getUid(), BookingId, trip.userId, System.currentTimeMillis() + "", false, false, trip.tripId));
+                DatabaseReference myRNotifiaction = database.getReference("notifications").child(trip.userId);
+                myRNotifiaction.setValue(new Notification(BookingId, NotifiactionId, trip.userId, user.getUid()));
+            }
+        });
+
+
+        adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        adb.show();
 
     }
 
