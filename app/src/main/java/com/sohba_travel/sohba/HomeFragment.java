@@ -1,15 +1,10 @@
 package com.sohba_travel.sohba;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,8 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.Activities.AddTrip;
 import com.sohba_travel.sohba.Adapters.TripAdapter;
+import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.Models.Timeline;
 import com.sohba_travel.sohba.Models.Trip;
 
@@ -38,6 +43,11 @@ public class HomeFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private List<Trip> mContentItems = new ArrayList<>();
     HashMap<String, Timeline> timelineHashMap = new HashMap<>();
+
+    // firebase to show only vertifed trips
+    private DatabaseReference mFirebaseDatabaseReference;
+    private FirebaseUser mFirebaseUser;
+    private static String userType;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -67,6 +77,35 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        final FloatingActionButton f = (FloatingActionButton) view.findViewById(R.id.fabAddTrip);
+        f.setVisibility(View.INVISIBLE);
+        // this to diffrenate between host and gest
+        mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users")
+                .child(mFirebaseUser.getUid().toString());
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                NewUserHost post = dataSnapshot.getValue(NewUserHost.class);
+                userType = post.getType();
+                f.setVisibility(View.VISIBLE);
+                if (post.getType().equals("0"))
+                    f.setImageDrawable(getResources().getDrawable(R.drawable.search__, null));
+                else
+                    f.setImageDrawable(getResources().getDrawable(R.drawable.ic_add, null));
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        mFirebaseDatabaseReference.addValueEventListener(postListener);
+
+
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvCards);
         RecyclerView.LayoutManager
                 layoutManager = new LinearLayoutManager(getActivity());
@@ -86,12 +125,18 @@ public class HomeFragment extends Fragment {
         progressDialog.setMessage("Loading");
         progressDialog.show();
 
-        myRef.addChildEventListener(new ChildEventListener() {
+
+        //this is to get the vertified trips only
+        Query q=myRef.orderByChild("userVertifed").equalTo("1");
+
+        mContentItems.clear();
+
+        q.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 progressDialog.hide();
                 Trip trip = new Trip();
-                trip.tripDescription = ((String) dataSnapshot.child("description").getValue());
+                trip.tripDescription = ((String) dataSnapshot.child("tripDescription").getValue());
                 trip.tripId = ((String) dataSnapshot.child("tripId").getValue());
                 trip.tripImage = ((String) dataSnapshot.child("tripImage").getValue());
                 trip.tripName = ((String) dataSnapshot.child("tripName").getValue());
@@ -100,15 +145,16 @@ public class HomeFragment extends Fragment {
                 trip.tripRate = ((String) dataSnapshot.child("tripRate").getValue());
                 trip.tripType = ((String) dataSnapshot.child("tripType").getValue());
                 trip.userId = ((String) dataSnapshot.child("userId").getValue());
+
                 for (DataSnapshot timelinesnap : dataSnapshot.child("timelineHashMap").getChildren()) {
                     Timeline timeline = timelinesnap.getValue(Timeline.class);
-                    timelineHashMap.put(timelinesnap.getKey(), timeline);
+                    trip.timelineHashMap.put(timelinesnap.getKey(), timeline);
 
                 }
-                trip.timelineHashMap = timelineHashMap;
+//                trip.timelineHashMap = timelineHashMap;
                 mContentItems.add(trip);
-                mAdapter.notifyDataSetChanged();
 
+                mAdapter.notifyDataSetChanged();
 
             }
 
@@ -137,6 +183,10 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.fabAddTrip)
     public void onClick() {
-        startActivity(new Intent(getActivity(), AddTrip.class));
+        if (userType.equals("0")) {
+
+        } else {
+            startActivity(new Intent(getActivity(), AddTrip.class));
+        }
     }
 }
