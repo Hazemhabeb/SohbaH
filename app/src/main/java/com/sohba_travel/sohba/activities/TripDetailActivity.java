@@ -26,9 +26,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.Adapters.TimelineAdapter;
 import com.sohba_travel.sohba.Models.Booking;
-import com.sohba_travel.sohba.Models.Notification;
+import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.Models.Timeline;
 import com.sohba_travel.sohba.Models.Trip;
+import com.sohba_travel.sohba.Notification_.DownstreamMessage;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.UI.SohbaTextView;
 
@@ -95,7 +96,7 @@ public class TripDetailActivity extends AppCompatActivity {
                 .child("Booking");
 
         //this is make user book trip once only one
-        Query q=mFirebaseDatabaseReference.orderByChild("userBooking").equalTo(user.getUid());
+        Query q = mFirebaseDatabaseReference.orderByChild("userBooking").equalTo(user.getUid());
 
         q.addChildEventListener(new ChildEventListener() {
             @Override
@@ -138,7 +139,7 @@ public class TripDetailActivity extends AppCompatActivity {
         tvCategory.setText(trip.tripType);
         tvDTripDescription.setText(trip.tripDescription);
         DRatingBar.setRating(Float.parseFloat(trip.tripRate));
-        bBooking.setText("book now "+trip.tripPrice+" EGP");
+        bBooking.setText("book now " + trip.tripPrice + " EGP");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(trip.userId);
@@ -158,6 +159,8 @@ public class TripDetailActivity extends AppCompatActivity {
 
     }
 
+    private static String token;
+
     @OnClick(R.id.bBooking)
     public void onClick() {
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
@@ -170,10 +173,33 @@ public class TripDetailActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+                // notification to user how add this trip
+
+                DatabaseReference df = FirebaseDatabase.getInstance().getReference().child("users").child(trip.userId);
+                ValueEventListener postListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        NewUserHost post = dataSnapshot.getValue(NewUserHost.class);
+                        token = post.getToken();
+                        DownstreamMessage down = new DownstreamMessage();
+                        String [] send={token,user.getUid(),trip.tripId};
+                        down.execute(send);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
+                df.addValueEventListener(postListener);
+
+
                 DatabaseReference myRef = database.getReference("trips").child(trip.tripId).child("Booking").child(BookingId);
                 myRef.setValue(new Booking(user.getUid(), BookingId, trip.userId, System.currentTimeMillis() + "", false, false, trip.tripId));
-                DatabaseReference myRNotifiaction = database.getReference("notifications").child(trip.userId);
-                myRNotifiaction.setValue(new Notification(BookingId, NotifiactionId, trip.userId, user.getUid()));
+//                DatabaseReference myRNotifiaction = database.getReference("notifications").child(trip.userId);
+//                myRNotifiaction.setValue(new Notification(BookingId, NotifiactionId, trip.userId, user.getUid()));
+//                Log.d("hazem", token);
+
             }
         });
 

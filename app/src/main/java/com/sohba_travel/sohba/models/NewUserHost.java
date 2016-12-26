@@ -6,6 +6,7 @@ package com.sohba_travel.sohba.Models;
 
 public class NewUserHost {
     private String uId;
+    private String token;
     private String Type;
     private String fName;
     private String lName;
@@ -181,5 +182,13 @@ public class NewUserHost {
 
     public void setJob(String job) {
         this.job = job;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

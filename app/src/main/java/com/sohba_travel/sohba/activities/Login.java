@@ -16,7 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.Utility.font;
 import com.sohba_travel.sohba.Views.ShowHidePasswordEditText;
@@ -33,6 +35,9 @@ public class Login extends AppCompatActivity {
 
     //firebase
     private FirebaseAuth mAuth;
+
+    // to get the notification
+    private DatabaseReference df;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +100,15 @@ public class Login extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "can't login", Toast.LENGTH_LONG)
                                     .show();
+
                         }else{
                             Toast.makeText(getApplicationContext(), "login sucess", Toast.LENGTH_LONG)
                                     .show();
+                            String token = FirebaseInstanceId.getInstance().getToken();
+//                            Log.d("hazem",token);
+                            df = FirebaseDatabase.getInstance().getReference();
+                            df.child("users")
+                                    .child(task.getResult().getUser().getUid()).child("token").setValue(token);
                             Intent i=new Intent(Login.this, MainActivity.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(i);

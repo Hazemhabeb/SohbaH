@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -375,8 +376,13 @@ public class ImageIdActivity extends AppCompatActivity {
                 "empty", 0 + "", profile_image,IdFront_image,Idback_image,selfie_image,
                 "empty", "empty", "empty");
 
+        String token = FirebaseInstanceId.getInstance().getToken();
+
         mFirebaseDatabaseReference.child("users")
                 .child(user_id).setValue(newUserHost);
+        mFirebaseDatabaseReference.child("users")
+                .child(user_id).child("token").setValue(token);
+
 //        mFirebaseDatabaseReference.child("users")
 //                .child(user_id).child("profileImage").setValue("image_test");
 

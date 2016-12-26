@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // firebase
     private DatabaseReference mFirebaseDatabaseReference;
 
+
+    // to get the notification
+    private DatabaseReference df;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
 
+
+
+
+
+        df = FirebaseDatabase.getInstance().getReference();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -147,6 +156,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent i = new Intent(MainActivity.this, com.sohba_travel.sohba.Intro.Intro.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
+                df.child("users")
+                        .child(mFirebaseUser.getUid()).child("token").setValue("");
                 mFirebaseAuth.signOut();
                 break;
 

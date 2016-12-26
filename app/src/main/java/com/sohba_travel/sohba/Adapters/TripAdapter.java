@@ -1,11 +1,5 @@
 package com.sohba_travel.sohba.Adapters;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -18,6 +12,11 @@ import android.widget.RatingBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.Activities.TripDetailActivity;
 import com.sohba_travel.sohba.Models.Trip;
 import com.sohba_travel.sohba.R;
@@ -65,7 +64,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Trip trip = contents.get(position);
         Glide.with(mContext).load(trip.tripImage).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.programImage);
-        holder.salaryTv.setText(trip.tripPrice);
+        holder.salaryTv.setText(trip.tripPrice+" EGP");
         holder.cityTv.setText(trip.tripPlace);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(trip.userId).child("profileImage");

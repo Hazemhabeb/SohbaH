@@ -176,6 +176,9 @@ public class AddTrip extends AppCompatActivity implements IPickResult {
                 DatabaseReference myRef = database.getReference("trips").child(tripId);
                 progressDialog.setTitle("Adding Trip");
                 progressDialog.show();
+
+                // to send notification
+//                String token = FirebaseInstanceId.getInstance().getToken();
                 com.sohba_travel.sohba.Models.Trip trip = new com.sohba_travel.sohba.Models.Trip(
                         tripId, user.getUid(),userVertified,
                         etTripDescrition.getText().toString(),

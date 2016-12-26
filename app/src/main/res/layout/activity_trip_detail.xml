@@ -1,213 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:fitsSystemWindows="true"
-                                                 >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
     <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:fitsSystemWindows="true"
-            >
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:fitsSystemWindows="true">
+
         <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginBottom="70dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/ivTripImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:expandedTitleMarginBottom="70dp"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-            <ImageView
-                    android:id="@+id/ivTripImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/trip_fayoum"
-                    />
+                android:scaleType="centerCrop"
+                android:src="@drawable/trip_fayoum" />
+
             <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                     >
-            </android.support.v7.widget.Toolbar>
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                                xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                xmlns:tools="http://schemas.android.com/tools"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="match_parent"
-                                                app:behavior_overlapTop="64dp"
-                                                android:layout_marginRight="16dp"
-                                                android:layout_marginLeft="16dp"
-                                                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                                                tools:context="com.asi.resohba.ProgrameDetial"
-                                               >
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:behavior_overlapTop="64dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.asi.resohba.ProgrameDetial">
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            xmlns:app="http://schemas.android.com/tools"
-                                            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                            android:id="@+id/card_view"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            card_view:cardCornerRadius="4dp">
+            xmlns:app="http://schemas.android.com/tools"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="4dp"
+            >
 
-        <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
 
                 >
-            <LinearLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
                     android:background="#f3f3f3"
-                    >
-                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:orientation="vertical"
                         android:layout_margin="16dp"
-                        >
+                        android:layout_weight="1.5"
+                        android:orientation="vertical">
 
-                    <com.sohba_travel.sohba.UI.SohbaTextView
+                        <com.sohba_travel.sohba.UI.SohbaTextView
                             android:id="@+id/tvTPlace"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Cairo - Giza"
                             android:layout_marginTop="5dp"
-                            />
-                </LinearLayout>
+                            android:text="Cairo - Giza" />
+                    </LinearLayout>
 
-                <LinearLayout
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginRight="24dp"
-                        >
-                    <LinearLayout
+                        android:layout_weight="1">
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
-                            >
+                            android:layout_marginTop="24dp">
 
-                        <RatingBar
+                            <RatingBar
                                 android:id="@+id/DRatingBar"
                                 style="?android:attr/ratingBarStyleSmall"
-                                android:progressTint="@color/colorAccent"
-                                android:numStars="5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:rating="5"/>
+                                android:numStars="5"
+                                android:progressTint="@color/colorAccent"
+                                android:rating="5" />
 
+                        </LinearLayout>
                     </LinearLayout>
+
                 </LinearLayout>
 
-            </LinearLayout>
-            <RelativeLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                <com.sohba_travel.sohba.UI.SohbaTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="hosted by"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:id="@+id/view2"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
-                <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:id="@+id/ivHostImage"
-                        android:background="@drawable/image_border_main"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/view2"
-                        android:layout_toEndOf="@+id/view2"
-                        android:src="@drawable/ma_profile_png"
-                        />
-
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_toRightOf="@+id/ivHostImage"
-                        android:layout_toEndOf="@+id/ivHostImage">
 
                     <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:id="@+id/view2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:text="hosted by" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivHostImage"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/view2"
+                        android:layout_toRightOf="@+id/view2"
+                        android:background="@drawable/image_border_main"
+                        android:src="@drawable/ma_profile_png" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_toEndOf="@+id/ivHostImage"
+                        android:layout_toRightOf="@+id/ivHostImage"
+                        android:orientation="vertical">
+
+                        <com.sohba_travel.sohba.UI.SohbaTextView
                             android:id="@+id/tvHostName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Name"
                             android:layout_marginTop="16dp"
+                            android:text="Name"
                             android:textColor="#000"
-                            android:textSize="20sp"
-                            />
+                            android:textSize="18sp" />
 
-                </LinearLayout>
+                    </LinearLayout>
 
-            </RelativeLayout>
-            <View
+                </RelativeLayout>
+
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#f3f3f3"
                     android:layout_marginTop="6dp"
-                    />
-            <com.sohba_travel.sohba.UI.SohbaTextView
+                    android:background="#f3f3f3" />
+
+                <com.sohba_travel.sohba.UI.SohbaTextView
                     android:id="@+id/tvDTripDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="The most famous Egyptian pyramids are those found at Giza, on the outskirts of Cairo. Several of the Giza pyramids are counted among the largest structures ever built. The Pyramid of Khufu at Giza is the largest Egyptian pyramid. It is the only one of the Seven Wonders of the Ancient World still in existence."
                     android:layout_margin="16dp"
-                    android:textSize="15sp"
-                    />
-            <View
+                    android:text="The most famous Egyptian pyramids are those found at Giza, on the outskirts of Cairo. Several of the Giza pyramids are counted among the largest structures ever built. The Pyramid of Khufu at Giza is the largest Egyptian pyramid. It is the only one of the Seven Wonders of the Ancient World still in existence."
+                    android:textSize="15sp" />
+
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#f3f3f3"
                     android:layout_marginTop="6dp"
-                    />
-            <LinearLayout
+                    android:background="#f3f3f3" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    >
-                <com.sohba_travel.sohba.UI.SohbaTextView
+                    android:orientation="vertical">
+
+                    <com.sohba_travel.sohba.UI.SohbaTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Type"
-                        />
-                <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:text="Type" />
+
+                    <com.sohba_travel.sohba.UI.SohbaTextView
                         android:id="@+id/tvCategory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:text="Group"
                         android:textColor="#000"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="10dp"
-                        />
+                        android:textSize="18sp" />
 
-            </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                    xmlns:android="http://schemas.android.com/apk/res/android"
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/rvDRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
-        </LinearLayout>
+                    android:layout_marginBottom="60dp"/>
+            </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -215,16 +214,15 @@
 
 
     <Button
-            android:id="@+id/bBooking"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="book now 50 EGP"
-            android:background="#F44336"
-            android:textColor="#fff"
-            android:clickable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:textStyle="bold"
-            android:layout_gravity="bottom"
-            android:textSize="20sp"
-            />
+        android:id="@+id/bBooking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#F44336"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="book now 50 EGP"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </android.support.design.widget.CoordinatorLayout>
