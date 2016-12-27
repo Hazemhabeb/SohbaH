@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +21,7 @@ import com.sohba_travel.sohba.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,12 +30,13 @@ import butterknife.ButterKnife;
  * Created by M on 12/8/2016.
  */
 
-public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificationAdapter.ViewHolder> {
+public class GuestNotificationAdapter extends RecyclerView.Adapter<GuestNotificationAdapter.ViewHolder> {
 
     List<Notification> contents;
     Context mContext;
+    String Payment="Payment:"+random();
 
-    public HostNotificationAdapter(List<Notification> contents, Context mContext) {
+    public GuestNotificationAdapter(List<Notification> contents, Context mContext) {
         this.contents = contents;
         this.mContext = mContext;
     }
@@ -52,7 +53,7 @@ public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificati
 
 
         view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.host_notification_item, parent, false);
+                .inflate(R.layout.guest_notification_item, parent, false);
         return new ViewHolder(view);
 
 
@@ -61,13 +62,23 @@ public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificati
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Notification notification = contents.get(position);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("users").child(notification.BookedUserId);
-        DatabaseReference tripRef = database.getReference("trips").child(notification.tripId).child("tripName");
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("users").child(notification.tripUserId);
+        DatabaseReference tripRef = database.getReference("trips").child(notification.tripId);
         tripRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                holder.tvQITitle.setText("Wants to book for your trip " + dataSnapshot.getValue());
+                String tripName = (String) dataSnapshot.child("tripName").getValue();
+                Boolean Accept = (Boolean) dataSnapshot.child("Booking").child(notification.BookingId).child("Accept").getValue();
+                if (Accept){
+                    holder.tvQITitle.setText("Has Accepted Your Booking for trip "+tripName+"." +
+                            "Please transfer "+dataSnapshot.child("tripPrice").getValue()+" LE to " +
+                            "01092614593"+" Within 24 Hours");
+                    DatabaseReference bookingRef = database.getReference("Payment").child(Payment);
+                    bookingRef.setValue(notification);
+                }else {
+                    holder.tvQITitle.setText("Has Refused Your Booking for trip "+tripName+".");
+                }
             }
 
             @Override
@@ -87,29 +98,6 @@ public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificati
 
             }
         });
-        holder.bAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("trips").child(notification.tripId).child("Booking").child(notification.BookingId).child("Accept");
-                myRef.setValue(true);
-                DatabaseReference GnotificationRef = database.getReference("guestNotifications").child(notification.BookedUserId).child(notification.NotificationId);
-                GnotificationRef.setValue(notification);
-
-
-            }
-        });
-        holder.bDecline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("trips").child(notification.tripId).child("Booking").child(notification.BookingId).child("Accept");
-                myRef.setValue(false);
-                DatabaseReference GnotificationRef = database.getReference("guestNotifications").child(notification.BookedUserId).child(notification.NotificationId);
-                GnotificationRef.setValue(notification);
-            }
-        });
-
 
 
     }
@@ -122,14 +110,22 @@ public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificati
         TextView tvBookedUsername;
         @BindView(R.id.tvQITitle)
         TextView tvQITitle;
-        @BindView(R.id.bAccept)
-        Button bAccept;
-        @BindView(R.id.bDecline)
-        Button bDecline;
 
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+    protected String random() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 }

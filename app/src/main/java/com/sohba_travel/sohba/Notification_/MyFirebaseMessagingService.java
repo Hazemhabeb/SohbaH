@@ -15,6 +15,14 @@
  */
 package com.sohba_travel.sohba.Notification_;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -24,14 +32,7 @@ import android.net.Uri;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
-import com.sohba_travel.sohba.Activities.MainActivity;
+import com.sohba_travel.sohba.Activities.NotificationActivity;
 import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.R;
 
@@ -54,7 +55,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d("hazem", "FCM Notification Message: " +
                 remoteMessage.getNotification());
         Log.d("hazem", "FCM Data Message: " + remoteMessage.getData());
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, NotificationActivity.class);
 
 
         sender_id = remoteMessage.getData().get("sender_id");
@@ -75,7 +76,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(getApplicationContext())
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Booking")
-                        .setContentText(sender_name+" book your trip tab to see how")
+                        .setContentText(sender_name+" book your trip tab to see who")
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);

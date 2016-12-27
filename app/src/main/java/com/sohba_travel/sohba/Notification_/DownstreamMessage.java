@@ -58,7 +58,7 @@ public class DownstreamMessage extends AsyncTask<String,String,String>
             JSONObject notification_json_object = new JSONObject();
             try
             {
-                notification_json_object.put("body","some one book your trip tab to see how");
+                notification_json_object.put("body","Someone book your trip tab to see who");
             }
             catch (JSONException e) {
                 // TODO Auto-generated catch block

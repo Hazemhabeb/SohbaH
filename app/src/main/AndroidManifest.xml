@@ -61,27 +61,30 @@
         </activity>
         <activity android:name=".Activities.TripDetailActivity">
         </activity>
-        <activity android:name=".Activities.AddTrip"
-            android:windowSoftInputMode="stateAlwaysHidden">
+        <activity
+                android:name=".Activities.AddTrip"
+                android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity android:name=".Activities.NotificationActivity">
         </activity>
-
         //notifaction
         <service
-            android:name=".Notification_.MyFirebaseMessagingService"
-            android:exported="false">
+                android:name=".Notification_.MyFirebaseMessagingService"
+                android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
         <service
-            android:name=".Notification_.MyFirebaseInstanceIdService"
-            android:exported="false">
+                android:name=".Notification_.MyFirebaseInstanceIdService"
+                android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+
+        <activity android:name=".Activities.SearchActivity">
+        </activity>
     </application>
 
 </manifest>

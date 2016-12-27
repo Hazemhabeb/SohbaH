@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.sohba_travel.sohba.Adapters.GuestNotificationAdapter;
 import com.sohba_travel.sohba.Adapters.HostNotificationAdapter;
 import com.sohba_travel.sohba.Models.Notification;
 import com.sohba_travel.sohba.R;
@@ -34,8 +35,6 @@ public class NotificationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final HostNotificationAdapter adapter = new HostNotificationAdapter(notificationList, NotificationActivity.this);
-        recyclerView.setAdapter(adapter);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(user.getUid()).child("type");
         final DatabaseReference HostRef = database.getReference("hostNotifications").child(user.getUid());
@@ -44,6 +43,8 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue().equals("1")) {
+                    final HostNotificationAdapter adapter = new HostNotificationAdapter(notificationList, NotificationActivity.this);
+                    recyclerView.setAdapter(adapter);
                     HostRef.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -76,11 +77,14 @@ public class NotificationActivity extends AppCompatActivity {
                     });
 
                 } else {
+                    final GuestNotificationAdapter adapter = new GuestNotificationAdapter(notificationList, NotificationActivity.this);
+                    recyclerView.setAdapter(adapter);
                     GuestRef.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                            Notification notification =dataSnapshot.getValue(Notification.class);
-//                            notificationList.add(notification);
+                            Notification notification =dataSnapshot.getValue(Notification.class);
+                            notificationList.add(notification);
+                            adapter.notifyDataSetChanged();
                         }
 
                         @Override

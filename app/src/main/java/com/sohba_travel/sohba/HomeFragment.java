@@ -1,5 +1,15 @@
 package com.sohba_travel.sohba;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,16 +23,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.Activities.AddTrip;
+import com.sohba_travel.sohba.Activities.SearchActivity;
 import com.sohba_travel.sohba.Adapters.TripAdapter;
 import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.Models.Timeline;
@@ -93,7 +95,7 @@ public class HomeFragment extends Fragment {
                 userType = post.getType();
                 f.setVisibility(View.VISIBLE);
                 if (post.getType().equals("0"))
-                    f.setImageDrawable(getResources().getDrawable(R.drawable.search__, null));
+                    f.setImageDrawable(getResources().getDrawable(R.drawable.ic_search, null));
                 else
                     f.setImageDrawable(getResources().getDrawable(R.drawable.ic_add, null));
 
@@ -184,7 +186,7 @@ public class HomeFragment extends Fragment {
     @OnClick(R.id.fabAddTrip)
     public void onClick() {
         if (userType.equals("0")) {
-
+            startActivity(new Intent(getActivity(), SearchActivity.class));
         } else {
             startActivity(new Intent(getActivity(), AddTrip.class));
         }
