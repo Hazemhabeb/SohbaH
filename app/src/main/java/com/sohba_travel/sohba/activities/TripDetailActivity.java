@@ -1,6 +1,7 @@
 package com.sohba_travel.sohba.Activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.Adapters.TimelineAdapter;
 import com.sohba_travel.sohba.Models.Booking;
 import com.sohba_travel.sohba.Models.NewUserHost;
+import com.sohba_travel.sohba.Models.Notification;
 import com.sohba_travel.sohba.Models.Timeline;
 import com.sohba_travel.sohba.Models.Trip;
 import com.sohba_travel.sohba.Notification_.DownstreamMessage;
@@ -145,9 +148,27 @@ public class TripDetailActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("users").child(trip.userId);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 tvHostName.setText((String) dataSnapshot.child("fName").getValue() + " " + (String) dataSnapshot.child("lName").getValue());
-                Glide.with(TripDetailActivity.this).load(dataSnapshot.child("profileImage").getValue()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivHostImage);
+                if (!TripDetailActivity.this.isDestroyed())
+                    Glide.with(TripDetailActivity.this).load(dataSnapshot.child("profileImage").getValue()).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivHostImage);
+
+                ivHostImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i=new Intent(TripDetailActivity.this,ProfileActivity.class);
+                        i.putExtra("profile",dataSnapshot.child("uId").getValue().toString());
+                        startActivity(i);
+                    }
+                });
+                tvHostName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i=new Intent(TripDetailActivity.this,ProfileActivity.class);
+                        i.putExtra("profile",dataSnapshot.child("uId").getValue().toString());
+                        startActivity(i);
+                    }
+                });
             }
 
             @Override
@@ -155,6 +176,7 @@ public class TripDetailActivity extends AppCompatActivity {
 
             }
         });
+
 
 
     }
@@ -183,7 +205,7 @@ public class TripDetailActivity extends AppCompatActivity {
                         NewUserHost post = dataSnapshot.getValue(NewUserHost.class);
                         token = post.getToken();
                         DownstreamMessage down = new DownstreamMessage();
-                        String [] send={token,user.getUid(),trip.tripId};
+                        String[] send = {token, user.getUid(), trip.tripId};
                         down.execute(send);
                     }
 
@@ -196,8 +218,8 @@ public class TripDetailActivity extends AppCompatActivity {
 
                 DatabaseReference myRef = database.getReference("trips").child(trip.tripId).child("Booking").child(BookingId);
                 myRef.setValue(new Booking(user.getUid(), BookingId, trip.userId, System.currentTimeMillis() + "", false, false, trip.tripId));
-//                DatabaseReference myRNotifiaction = database.getReference("notifications").child(trip.userId);
-//                myRNotifiaction.setValue(new Notification(BookingId, NotifiactionId, trip.userId, user.getUid()));
+                DatabaseReference myRNotifiaction = database.getReference("hostNotifications").child(trip.userId).child(NotifiactionId);
+                myRNotifiaction.setValue(new Notification(BookingId, NotifiactionId, trip.userId, user.getUid(), trip.tripId));
 //                Log.d("hazem", token);
 
             }
@@ -224,6 +246,13 @@ public class TripDetailActivity extends AppCompatActivity {
         String saltStr = salt.toString();
         return saltStr;
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

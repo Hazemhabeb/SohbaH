@@ -43,6 +43,7 @@ public class DownstreamMessage extends AsyncTask<String,String,String>
             user_id=params[1];
             trip_id=params[2];
 
+
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
             httpURLConnection.setRequestProperty("Authorization", server_key);
@@ -68,6 +69,7 @@ public class DownstreamMessage extends AsyncTask<String,String,String>
 
             try
             {
+
                 data.put("sender_id",user_id);
                 data.put("trip_id",trip_id);
             }

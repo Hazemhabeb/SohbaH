@@ -75,6 +75,7 @@ public class RegisterTakeSelfie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.take_selfie);
 
+//        Log.d("hazem","here in Selfie  image ");
         context=this;
         imageView= (ImageView) findViewById(R.id.imageView);
         imageHolder= (ImageView) findViewById(R.id.imageHolder);

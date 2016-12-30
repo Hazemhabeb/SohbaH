@@ -1,195 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:funky="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:context=".Activities.ProfileActivity">
+    android:orientation="vertical">
 
-    <com.intrusoft.library.FunkyHeader
-        android:id="@+id/wave_head"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        funky:scaleType="centerCrop"
-        funky:src="@drawable/pyramid"
-        funky:tint="@color/colorPrimary" />
-
-
-    <View
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/ic_create_black_24dp" />
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="120dp"
-        android:src="@drawable/ma_profile_png" />
-
-    <TextView
-        android:id="@+id/tvPname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/image"
-        android:layout_marginLeft="28dp"
-        android:layout_toRightOf="@+id/image"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text=""
-        android:textColor="#ccffffff"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvPabout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvPname"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="4dp"
-        android:layout_toRightOf="@+id/image"
-        android:text=""
-        android:textColor="#aaffffff" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wave_head"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/login_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Trips"
-                    android:textColor="#cc424242" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="#aa424242" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:funky="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/activity_main"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    tools:context=".Activities.ProfileActivity">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Going"
-                    android:textColor="#cc424242" />
-            </LinearLayout>
+                    <com.intrusoft.library.FunkyHeader
+                        android:id="@+id/wave_head"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        funky:scaleType="centerCrop"
+                        funky:src="@drawable/pyramid"
+                        funky:tint="@color/colorPrimary" />
 
-            <View
-                android:layout_width="1dp"
+
+                    <View
+                        android:id="@+id/edit_data_profile_view"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="18dp"
+                        android:layout_marginTop="48dp"
+                        android:background="@drawable/ic_create_black_24dp" />
+
+
+                    <FrameLayout
+                        android:id="@+id/image_holder"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="120dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/image"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:src="@drawable/ma_profile_png" />
+
+                        <View
+                            android:id="@+id/edit_photo_profile_view"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="bottom|right"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginRight="8dp"
+                            android:background="@drawable/ic_create_black_24dp" />
+
+                    </FrameLayout>
+
+
+                    <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:id="@+id/tvPname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/image_holder"
+                        android:layout_marginLeft="28dp"
+                        android:layout_toRightOf="@+id/image_holder"
+                        android:fontFamily="sans-serif-smallcaps"
+                        android:text=""
+                        android:textColor="#ccffffff"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <com.sohba_travel.sohba.UI.SohbaTextView
+                        android:id="@+id/tvPabout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvPname"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@+id/image_holder"
+                        android:text=""
+                        android:textColor="#ffffff" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/wave_head"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvDetailProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:scrollbars="horizontal" />
+
+
+                        <com.sohba_travel.sohba.UI.SohbaTextView
+                            android:id="@+id/trips_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center|left"
+                            android:text="Trips"
+                            android:textColor="#cc424242"
+                            android:textSize="20dp" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvCards"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="#aa424242" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="Points"
-                    android:textColor="#cc424242" />
+                android:scrollbars="horizontal" />
             </LinearLayout>
+
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-        <TextView
-            android:id="@+id/tvMail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="26dp"
-            android:drawablePadding="24dp"
-            android:gravity="center"
-            android:text="mail"
-            android:textColor="@color/colorPrimary" />
 
-        <TextView
-            android:id="@+id/tvInterest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="26dp"
-            android:drawablePadding="24dp"
-            android:gravity="center"
-            android:text="interests"
-            android:textColor="@color/colorPrimary" />
-
-        <TextView
-            android:id="@+id/tvJob"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="26dp"
-            android:drawablePadding="24dp"
-            android:gravity="center"
-            android:text="Job"
-            android:textColor="@color/colorPrimary" />
-
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

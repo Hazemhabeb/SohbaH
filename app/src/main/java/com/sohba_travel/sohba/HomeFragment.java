@@ -1,15 +1,5 @@
 package com.sohba_travel.sohba;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.Activities.AddTrip;
 import com.sohba_travel.sohba.Activities.SearchActivity;
 import com.sohba_travel.sohba.Adapters.TripAdapter;
@@ -94,11 +93,15 @@ public class HomeFragment extends Fragment {
                 NewUserHost post = dataSnapshot.getValue(NewUserHost.class);
                 userType = post.getType();
                 f.setVisibility(View.VISIBLE);
-                if (post.getType().equals("0"))
-                    f.setImageDrawable(getResources().getDrawable(R.drawable.ic_search, null));
-                else
-                    f.setImageDrawable(getResources().getDrawable(R.drawable.ic_add, null));
+                if (isAdded()) {
+                    getResources().getString(R.string.app_name);
 
+                    if (post.getType().equals("0"))
+                        f.setImageDrawable(getResources().getDrawable(R.drawable.ic_search, null));
+                    else
+                        f.setImageDrawable(getResources().getDrawable(R.drawable.ic_add, null));
+
+                }
             }
 
             @Override
@@ -129,7 +132,7 @@ public class HomeFragment extends Fragment {
 
 
         //this is to get the vertified trips only
-        Query q=myRef.orderByChild("userVertifed").equalTo("1");
+        Query q = myRef.orderByChild("userVertifed").equalTo("1");
 
         mContentItems.clear();
 

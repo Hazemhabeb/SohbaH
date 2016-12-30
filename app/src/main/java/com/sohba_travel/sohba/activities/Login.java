@@ -1,11 +1,11 @@
 package com.sohba_travel.sohba.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -88,24 +88,24 @@ public class Login extends AppCompatActivity {
     }
 
     public void login(){
+        final ProgressDialog progressDialog = new ProgressDialog(Login.this);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("hazem", "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
+                            progressDialog.hide();
                             Toast.makeText(getApplicationContext(), "can't login", Toast.LENGTH_LONG)
                                     .show();
 
                         }else{
-                            Toast.makeText(getApplicationContext(), "login sucess", Toast.LENGTH_LONG)
-                                    .show();
+                            progressDialog.hide();
+//                            Toast.makeText(getApplicationContext(), "login sucess", Toast.LENGTH_LONG)
+//                                    .show();
                             String token = FirebaseInstanceId.getInstance().getToken();
-//                            Log.d("hazem",token);
                             df = FirebaseDatabase.getInstance().getReference();
                             df.child("users")
                                     .child(task.getResult().getUser().getUid()).child("token").setValue(token);

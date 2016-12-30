@@ -1,5 +1,12 @@
 package com.sohba_travel.sohba.Activities;
 
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -8,12 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
 import com.sohba_travel.sohba.Adapters.GuestNotificationAdapter;
 import com.sohba_travel.sohba.Adapters.HostNotificationAdapter;
 import com.sohba_travel.sohba.Models.Notification;
@@ -32,6 +33,7 @@ public class NotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rvNotification);
+        final TextView text_empty_notification= (TextView) findViewById(R.id.text_empty_notification);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -51,8 +53,14 @@ public class NotificationActivity extends AppCompatActivity {
                             Notification notification = dataSnapshot.getValue(Notification.class);
                             notificationList.add(notification);
                             adapter.notifyDataSetChanged();
-
-
+                            if (notificationList.isEmpty()) {
+                                recyclerView.setVisibility(View.GONE);
+                                text_empty_notification.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                text_empty_notification.setVisibility(View.GONE);
+                            }
                         }
 
                         @Override
@@ -73,6 +81,14 @@ public class NotificationActivity extends AppCompatActivity {
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
+                            if (notificationList.isEmpty()) {
+                                recyclerView.setVisibility(View.GONE);
+                                text_empty_notification.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                text_empty_notification.setVisibility(View.GONE);
+                            }
                         }
                     });
 
@@ -85,6 +101,14 @@ public class NotificationActivity extends AppCompatActivity {
                             Notification notification =dataSnapshot.getValue(Notification.class);
                             notificationList.add(notification);
                             adapter.notifyDataSetChanged();
+                            if (notificationList.isEmpty()) {
+                                recyclerView.setVisibility(View.GONE);
+                                text_empty_notification.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                text_empty_notification.setVisibility(View.GONE);
+                            }
                         }
 
                         @Override
@@ -105,6 +129,7 @@ public class NotificationActivity extends AppCompatActivity {
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
+
                         }
                     });
 
@@ -114,8 +139,17 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+                if (notificationList.isEmpty()) {
+                    recyclerView.setVisibility(View.GONE);
+                    text_empty_notification.setVisibility(View.VISIBLE);
+                }
+                else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    text_empty_notification.setVisibility(View.GONE);
+                }
             }
         });
+
 
     }
 }

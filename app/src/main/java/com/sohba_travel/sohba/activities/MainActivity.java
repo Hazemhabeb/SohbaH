@@ -1,14 +1,5 @@
 package com.sohba_travel.sohba.Activities;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -33,7 +24,16 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.HomeFragment;
+import com.sohba_travel.sohba.Intro.Intro;
 import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.UI.SohbaTextView;
@@ -78,14 +78,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            Intent i = new Intent(MainActivity.this, com.sohba_travel.sohba.Activities.Login.class);
+            Intent i = new Intent(MainActivity.this, Intro.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
             return;
         }
-
-
-
 
 
         df = FirebaseDatabase.getInstance().getReference();
@@ -104,38 +101,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerToggle.syncState();
 
 
-        View hView =  mDrawer.getHeaderView(0);
-        final SohbaTextView nav_user = (SohbaTextView)hView.findViewById(R.id.userNameNav);
-        final ImageView nav_image=(ImageView)hView.findViewById(R.id.image);
+        View hView = mDrawer.getHeaderView(0);
+        final SohbaTextView nav_user = (SohbaTextView) hView.findViewById(R.id.userNameNav);
+        final ImageView nav_image = (ImageView) hView.findViewById(R.id.image);
 
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(mFirebaseUser.getUid());
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 NewUserHost post = dataSnapshot.getValue(NewUserHost.class);
-                Glide.with(MainActivity.this).load(post.getProfileImage()).
-                        diskCacheStrategy(DiskCacheStrategy.ALL).into(nav_image);
-                nav_user.setText(post.getfName()+" "+post.getlName());
+
+                if (!MainActivity.this.isDestroyed())
+                    Glide.with(MainActivity.this).load(post.getProfileImage()).
+                            diskCacheStrategy(DiskCacheStrategy.ALL).into(nav_image);
+
+                nav_user.setText(post.getfName() + " " + post.getlName());
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
             }
         };
         mFirebaseDatabaseReference.addValueEventListener(postListener);
 
 
-
         nav_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
             }
         });
         nav_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
             }
         });
 
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+
     private void itemSelection(int mSelectedId) {
 
         switch (mSelectedId) {
@@ -156,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                 break;
             case R.id.logout_lm:
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 Intent i = new Intent(MainActivity.this, com.sohba_travel.sohba.Activities.Login.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
@@ -163,6 +165,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .child(mFirebaseUser.getUid()).child("token").setValue("");
                 mFirebaseAuth.signOut();
                 break;
+            case R.id.item_navigation_mytrip:
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(MainActivity.this,MyTrip.class));
+                break;
+            case R.id.item_navigation_notification:
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                Intent myIntent = new Intent(MainActivity.this, NotificationActivity.class);
+                startActivity(myIntent);
+                break;
+            case R.id.item_navigation_search:
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(MainActivity.this,SearchActivity.class));
+                break;
+            case R.id.item_navigation_about:
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                startActivity(new Intent(MainActivity.this,AboutActivity.class));
+                break;
+
+
 
 
         }
@@ -171,15 +192,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+//        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+//        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "");
-        adapter.addFragment(new HomeFragment(), "");
-        adapter.addFragment(new HomeFragment(), "");
+//        adapter.addFragment(new HomeFragment(), "");
+//        adapter.addFragment(new HomeFragment(), "");
         viewPager.setAdapter(adapter);
     }
 

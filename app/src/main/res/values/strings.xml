@@ -20,4 +20,5 @@
 
     <string name="guest_note">Note: Being guest you are able to  book and visit places with other people</string>
     <string name="host_note">Note: Being Host you are able to make trips with other people and gain money</string>
+    <string name="aboutApp">An Android app that helps who visit places for the first time, and who wants to meet new people by offering a guide with a pre-booking detailed program with all needed info (time, money, transportation, location, etc). Security of both of guest and guide is guaranteed by registering all the required info (ID, criminal profile, etc) and keeping them on track along the trip which ends by rating and feedback of each others. Revenue comes from percentage from guide according to trip</string>
 </resources>

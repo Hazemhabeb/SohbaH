@@ -56,8 +56,8 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
 
-        mFirebaseDatabaseReference.child("users")
-                .child(user.getUid()).child("token").setValue(token);
+//        mFirebaseDatabaseReference.child("users")
+//                .child(user.getUid()).child("token").setValue(token);
 
         // Once a token is generated, we subscribe to topic.
         FirebaseMessaging.getInstance()

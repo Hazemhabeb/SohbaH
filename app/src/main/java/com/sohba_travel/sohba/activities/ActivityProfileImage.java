@@ -1,20 +1,15 @@
 package com.sohba_travel.sohba.Activities;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,15 +33,15 @@ import com.sohba_travel.sohba.Models.NewUserGuest;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.Utility.RegisterData;
 import com.sohba_travel.sohba.Utility.font;
-import com.squareup.picasso.Picasso;
+import com.vansuita.pickimage.PickImageDialog;
+import com.vansuita.pickimage.PickSetup;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.listeners.IPickResult;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
-public class ActivityProfileImage extends AppCompatActivity {
+public class ActivityProfileImage extends AppCompatActivity implements IPickResult {
 
     public static String ActivityProfileImageS = "ActivityProfileImage";
 
@@ -55,7 +50,6 @@ public class ActivityProfileImage extends AppCompatActivity {
     private Uri selectedImage;
 
 
-    String ba1;
 
     final String IMAGEFOLDER = "sohba";
 
@@ -98,6 +92,7 @@ public class ActivityProfileImage extends AppCompatActivity {
     StorageReference imagesRef;
     StorageReference spaceRef;
     StorageReference mountainsRef;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,139 +124,16 @@ public class ActivityProfileImage extends AppCompatActivity {
         // Points to the root reference
         storageRef = storage.getReferenceFromUrl("gs://sohba-717ca.appspot.com/");
 
-        // Create a reference to "mountains.jpg"
-
-
-        // Create a reference to 'images/mountains.jpg'
-        StorageReference mountainImagesRef = storageRef.child("images/mountains.jpg");
-        // Create a child reference
-        // imagesRef now points to "images"
-//         imagesRef = storageRef.child("images");
-//
-//
-//        // Child references can also take paths
-//        // spaceRef now points to "users/me/profile.png
-//        // imagesRef still points to "images"
-//         spaceRef = storageRef.child("images/space.jpg");
-//
-//        // Note that you can use variables to create child values
-//        String fileName = "space.jpg";
-//        spaceRef = imagesRef.child(fileName);
-//
-//        // File path is "images/space.jpg"
-//        String path = spaceRef.getPath();
-//
-//        // File name is "space.jpg"
-//        String name = spaceRef.getName();
-//
-//        // Points to "images"
-//        imagesRef = spaceRef.getParent();
 
         font font = new font();
         font.changeFonts(this, (LinearLayout) findViewById(R.id.parent_layout));
     }
 
     public void imageHolder(View view) {
-
-        activeTakePhoto();
+        PickImageDialog.on(ActivityProfileImage.this, new PickSetup());
     }
 
-
-    private void activeTakePhoto() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Choose Image Source");
-        builder.setItems(new CharSequence[]{"Gallery", "Camera"},
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-
-                                //Launching the gallery
-                                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                startActivityForResult(i, GALLERY);
-
-                                break;
-
-                            case 1:
-                                //Specify a camera intent
-                                Intent getCameraImage = new Intent("android.media.action.IMAGE_CAPTURE");
-
-                                File cameraFolder;
-
-                                //Check to see if there is an SD card mounted
-                                if (android.os.Environment.getExternalStorageState().equals
-                                        (android.os.Environment.MEDIA_MOUNTED))
-                                    cameraFolder = new File(android.os.Environment.getExternalStorageDirectory(),
-                                            IMAGEFOLDER);
-                                else
-                                    cameraFolder = ActivityProfileImage.this.getCacheDir();
-                                if (!cameraFolder.exists())
-                                    cameraFolder.mkdirs();
-
-                                //Appending timestamp to "picture_"
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
-                                String timeStamp = dateFormat.format(new Date());
-                                String imageFileName = "picture_" + timeStamp + ".jpg";
-
-                                File photo = new File(Environment.getExternalStorageDirectory(),
-                                        IMAGEFOLDER + imageFileName);
-                                getCameraImage.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-
-                                //Setting a global variable to be used in the OnActivityResult
-                                imageURI = Uri.fromFile(photo);
-
-                                startActivityForResult(getCameraImage, CAMERA);
-
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                });
-
-        builder.show();
-
-
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        Uri selectedImage;
-        String selectedImagePath = null;
-        if (resultCode == RESULT_OK) {
-            imageHolder.setVisibility(View.INVISIBLE);
-            switch (requestCode) {
-
-                case GALLERY:
-                    selectedImage = data.getData();
-//                    selectedImagePath=selectedImage.getEncodedPath();
-                    Picasso.with(context)
-                            .load(selectedImage)
-                            .fit()
-                            .into(imageView);
-
-
-                    break;
-
-                case CAMERA:
-//                    selectedImagePath=imageURI.getPath();
-                    Picasso.with(context)
-                            .load(imageURI)
-                            .fit()
-                            .into(imageView);
-
-                    break;
-            }
-
-
-        }
-
-    }
-
-     static  ProgressDialog pDialog;
+    static ProgressDialog pDialog;
 
     public void goToNext(View view) {
 
@@ -281,8 +153,6 @@ public class ActivityProfileImage extends AppCompatActivity {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         final byte[] byteArray = byteArrayOutputStream.toByteArray();
-        ba1 = Base64.encodeToString(byteArray, Base64.DEFAULT);
-//        Toast.makeText(context,ba1,Toast.LENGTH_LONG).show();
 
 
         pDialog = new ProgressDialog(this);
@@ -290,7 +160,8 @@ public class ActivityProfileImage extends AppCompatActivity {
 
         if (status == 1) {
 
-            Intent i = new Intent(ActivityProfileImage.this, RegisterTakeSelfie.class);
+            Log.d("hazem","here in profile image ");
+            Intent i = new Intent(ActivityProfileImage.this,RegisterTakeSelfie.class);
             i.putExtra(ContinueAs_activity.ContinueAs_activityS, status);
             i.putExtra(RegisterData.fn, fn);
             i.putExtra(RegisterData.ln, ln);
@@ -309,11 +180,7 @@ public class ActivityProfileImage extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            Log.d("h", "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
                             if (!task.isSuccessful()) {
                                 Toast.makeText(ActivityProfileImage.this, "Can't Create account",
                                         Toast.LENGTH_SHORT).show();
@@ -322,23 +189,14 @@ public class ActivityProfileImage extends AppCompatActivity {
                                 Toast.makeText(ActivityProfileImage.this, "created",
                                         Toast.LENGTH_SHORT).show();
 
-//                            startActivity(new Intent(RegisterNew.this, DetialFive_interest.class));
-
                                 mFirebaseUser = mAuth.getCurrentUser();
                                 user_id = mFirebaseUser.getUid();
 
                                 uploadImage(byteArray);
-//                                addNewUserData();
-
                             }
 
-                            // [START_EXCLUDE]
-//                        hideProgressDialog();
-                            // [END_EXCLUDE]
                         }
                     });
-//            Intent i = new Intent(ActivityProfileImage.this, RegisterAddLater.class);
-//            startActivity(i);
         }
     }
 
@@ -348,21 +206,20 @@ public class ActivityProfileImage extends AppCompatActivity {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                Toast.makeText(ActivityProfileImage.this," error upload images",Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityProfileImage.this, " error upload images", Toast.LENGTH_LONG).show();
                 pDialog.hide();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 profile_image = downloadUrl.toString();
-//                Toast.makeText(ActivityProfileImage.this,downloadUrl+"   done in signin",Toast.LENGTH_LONG).show();
                 addNewUserData();
             }
         });
     }
+
+
 
     private void addNewUserData() {
         NewUserGuest newUserGuest = new
@@ -380,15 +237,25 @@ public class ActivityProfileImage extends AppCompatActivity {
         mFirebaseDatabaseReference.child("users")
                 .child(user_id).child("token").setValue(token);
 
-//        mFirebaseDatabaseReference.child("users")
-//                .child(user_id).child("profileImage").setValue("image_test");
 
         pDialog.hide();
-        Intent i=new Intent(ActivityProfileImage.this, RegisterAddLater.class);
-        i.putExtra(RegisterData.User_id,user_id);
+        Intent i = new Intent(ActivityProfileImage.this, RegisterAddLater.class);
+        i.putExtra(RegisterData.User_id, user_id);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | IntentCompat.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
 
 
+    }
+
+    @Override
+    public void onPickResult(PickResult r) {
+        if (r.getError() == null) {
+            imageHolder.setImageBitmap(null);
+            imageView.setImageBitmap(r.getBitmap());
+
+        } else {
+            //Handle possible errors
+            //TODO: do what you have to do with r.getError();
+        }
     }
 }

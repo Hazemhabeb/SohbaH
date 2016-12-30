@@ -3,14 +3,36 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="nkdroid.tutorial.navigationview.MainActivity">
     <group android:checkableBehavior="single">
+
+
+        <item
+            android:id="@+id/item_navigation_mytrip"
+            android:icon="@drawable/my_trip_"
+            android:title="My Trips"/>
+        <item
+            android:id="@+id/item_navigation_search"
+            android:icon="@drawable/search____"
+            android:title="Search"/>
         <item
                 android:id="@+id/item_navigation_profile"
                 android:icon="@drawable/ic_profile"
                 android:title="Profile"/>
         <item
+            android:id="@+id/item_navigation_notification"
+            android:icon="@drawable/ic_notifications"
+            android:title="Notifications"/>
+        <item
+            android:id="@+id/item_navigation_contactus"
+            android:icon="@drawable/contact_us_"
+            android:title="Contact Us"/>
+        <item
+            android:id="@+id/item_navigation_about"
+            android:icon="@drawable/about_us_"
+            android:title="About"/>
+        <item
             android:id="@+id/logout_lm"
             android:title="Logout"
-            android:icon="@drawable/logout_icon"/>
+            android:icon="@drawable/logout_"/>
 
 
     </group>

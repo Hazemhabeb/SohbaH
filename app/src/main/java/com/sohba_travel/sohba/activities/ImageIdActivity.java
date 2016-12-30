@@ -241,11 +241,6 @@ public class ImageIdActivity extends AppCompatActivity {
     static ProgressDialog pDialog;
     public void goToNext(View view){
 
-//        if (status==1){
-//            Toast.makeText(context,"profil"+ byteArray_profile.toString()+"    " +
-//                    ""+byteArray_selfie, Toast.LENGTH_LONG).show();
-//            return;
-//        }
 
         if (imageView1.getDrawable()==null||imageView2.getDrawable()==null) {
             Toast.makeText(context, "Please select Image Required ! ", Toast.LENGTH_LONG).show();

@@ -1,11 +1,5 @@
 package com.sohba_travel.sohba.Adapters;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,15 +10,21 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.Models.Notification;
+import com.sohba_travel.sohba.Notification_.DownstreamMessage_gest;
 import com.sohba_travel.sohba.R;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by M on 12/8/2016.
@@ -34,6 +34,8 @@ public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificati
 
     List<Notification> contents;
     Context mContext;
+
+    private static String token;
 
     public HostNotificationAdapter(List<Notification> contents, Context mContext) {
         this.contents = contents;
@@ -79,7 +81,9 @@ public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificati
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 holder.tvBookedUsername.setText(dataSnapshot.child("fName").getValue() + " " + dataSnapshot.child("lName").getValue());
-                Glide.with(mContext).load(dataSnapshot.child("profileImage").getValue()).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.ivBookedUserPic);
+                if (mContext != null)
+                    Glide.with(mContext).load(dataSnapshot.child("profileImage").getValue()).
+                            diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.ivBookedUserPic);
             }
 
             @Override
@@ -90,11 +94,30 @@ public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificati
         holder.bAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("trips").child(notification.tripId).child("Booking").child(notification.BookingId).child("Accept");
                 myRef.setValue(true);
                 DatabaseReference GnotificationRef = database.getReference("guestNotifications").child(notification.BookedUserId).child(notification.NotificationId);
                 GnotificationRef.setValue(notification);
+                // notification to user how add this trip
+
+                DatabaseReference df = FirebaseDatabase.getInstance().getReference().child("users").child(notification.BookedUserId);
+                ValueEventListener postListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        NewUserHost post = dataSnapshot.getValue(NewUserHost.class);
+                        token = post.getToken();
+                        DownstreamMessage_gest down = new DownstreamMessage_gest();
+                        String[] send = {token, notification.tripUserId, notification.tripId, "true"};
+                        down.execute(send);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
+                df.addValueEventListener(postListener);
 
 
             }
@@ -107,9 +130,24 @@ public class HostNotificationAdapter extends RecyclerView.Adapter<HostNotificati
                 myRef.setValue(false);
                 DatabaseReference GnotificationRef = database.getReference("guestNotifications").child(notification.BookedUserId).child(notification.NotificationId);
                 GnotificationRef.setValue(notification);
+                DatabaseReference df = FirebaseDatabase.getInstance().getReference().child("users").child(notification.BookedUserId);
+                ValueEventListener postListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        NewUserHost post = dataSnapshot.getValue(NewUserHost.class);
+                        token = post.getToken();
+                        DownstreamMessage_gest down = new DownstreamMessage_gest();
+                        String[] send = {token, notification.tripUserId, notification.tripId, "false"};
+                        down.execute(send);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
+                df.addValueEventListener(postListener);
             }
         });
-
 
 
     }

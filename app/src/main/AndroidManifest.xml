@@ -1,90 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.sohba_travel.sohba">
+    package="com.sohba_travel.sohba">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-            android:name=".mApplication"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme.NoActionBar">
+        android:name=".mApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-                android:name=".Intro.Intro"
-                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".Intro.Intro"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-                android:name=".Activities.ContinueAs_activity"
-                android:theme="@style/AppTheme_login"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:name=".Activities.ContinueAs_activity"
+            android:theme="@style/AppTheme_login"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-                android:name=".Activities.RegisterNew"
-                android:theme="@style/AppTheme_login"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:name=".Activities.RegisterNew"
+            android:theme="@style/AppTheme_login"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-                android:name=".Activities.RegisterAddLater"
-                android:theme="@style/AppTheme_login"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:name=".Activities.RegisterAddLater"
+            android:theme="@style/AppTheme_login"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-                android:name=".Activities.RegisterTakeSelfie"
-                android:theme="@style/AppTheme_login"/>
+            android:name=".Activities.RegisterTakeSelfie"
+            android:theme="@style/AppTheme_login" />
         <activity
-                android:name=".Activities.ImageIdActivity"
-                android:theme="@style/AppTheme_login"/>
+            android:name=".Activities.ImageIdActivity"
+            android:theme="@style/AppTheme_login" />
         <activity
-                android:name=".Activities.ActivityProfileImage"
-                android:theme="@style/AppTheme_login"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:name=".Activities.ActivityProfileImage"
+            android:theme="@style/AppTheme_login"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-                android:name=".Activities.Login"
-                android:label="Sohba"
-                android:theme="@style/AppTheme_login"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".Activities.ProfileActivity">
-        </activity>
-        <activity android:name=".Activities.TripDetailActivity">
-        </activity>
+            android:name=".Activities.Login"
+            android:label="Sohba"
+            android:theme="@style/AppTheme_login"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".Activities.ProfileActivity"></activity>
+        <activity android:name=".Activities.TripDetailActivity"></activity>
         <activity
-                android:name=".Activities.AddTrip"
-                android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-        <activity android:name=".Activities.NotificationActivity">
-        </activity>
+            android:name=".Activities.AddTrip"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+        <activity android:name=".Activities.NotificationActivity"></activity>
         //notifaction
         <service
-                android:name=".Notification_.MyFirebaseMessagingService"
-                android:exported="false">
+            android:name=".Notification_.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-                android:name=".Notification_.MyFirebaseInstanceIdService"
-                android:exported="false">
+            android:name=".Notification_.MyFirebaseInstanceIdService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".Activities.SearchActivity">
-        </activity>
+        <activity android:name=".Activities.SearchActivity"></activity>
+        <activity android:name=".Activities.MyTrip" />
+        <activity android:name=".Activities.AboutActivity" />
+
     </application>
 
 </manifest>
