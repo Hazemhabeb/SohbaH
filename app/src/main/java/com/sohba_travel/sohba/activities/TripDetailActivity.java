@@ -1,5 +1,15 @@
 package com.sohba_travel.sohba.Activities;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,15 +27,6 @@ import android.widget.RatingBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.Adapters.TimelineAdapter;
 import com.sohba_travel.sohba.Models.Booking;
 import com.sohba_travel.sohba.Models.NewUserHost;
@@ -36,6 +37,8 @@ import com.sohba_travel.sohba.Notification_.DownstreamMessage;
 import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.UI.SohbaTextView;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +47,6 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TripDetailActivity extends AppCompatActivity {
     Trip trip;
@@ -97,7 +99,21 @@ public class TripDetailActivity extends AppCompatActivity {
         // to know if i book this trip or not
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("trips").child(trip.tripId)
                 .child("Booking");
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("trips").child(trip.tripId)
+                .child("userId");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue().equals(user.getUid())){
+                    bBooking.setVisibility(View.GONE);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         //this is make user book trip once only one
         Query q = mFirebaseDatabaseReference.orderByChild("userBooking").equalTo(user.getUid());
 
