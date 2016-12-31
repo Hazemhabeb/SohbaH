@@ -52,7 +52,7 @@ public class profileDetailAdapter extends RecyclerView.Adapter<profileDetailAdap
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final detail_profile detail = contents.get(position);
         holder.text.setText(detail.getWord());
-        holder.image.setImageDrawable(mContext.getResources().getDrawable(detail.getIcon(),null));
+        holder.image.setImageDrawable(mContext.getResources().getDrawable(detail.getIcon()));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

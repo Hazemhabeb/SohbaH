@@ -178,6 +178,8 @@ public class ProfileActivity extends AppCompatActivity implements IPickResult {
                     mContentItems_detail.add(new detail_profile(R.drawable.language, post.getLanguage()));
                 }
 
+                mAdapter_detail.notifyDataSetChanged();
+
 
                 if (!ProfileActivity.this.isDestroyed())
                     Glide.with(ProfileActivity.this).load(post.getProfileImage()).

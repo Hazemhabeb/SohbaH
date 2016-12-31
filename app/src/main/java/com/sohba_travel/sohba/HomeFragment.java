@@ -97,9 +97,9 @@ public class HomeFragment extends Fragment {
                     getResources().getString(R.string.app_name);
 
                     if (post.getType().equals("0"))
-                        f.setImageDrawable(getResources().getDrawable(R.drawable.ic_search, null));
+                        f.setImageDrawable(getResources().getDrawable(R.drawable.ic_search));
                     else
-                        f.setImageDrawable(getResources().getDrawable(R.drawable.ic_add, null));
+                        f.setImageDrawable(getResources().getDrawable(R.drawable.ic_add));
 
                 }
             }
