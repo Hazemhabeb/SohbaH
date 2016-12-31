@@ -35,6 +35,7 @@
 
         <FrameLayout
                 android:layout_width="match_parent"
+                android:padding="4dp"
                 android:layout_height="match_parent">
 
             <com.sohba_travel.sohba.UI.SohbaTextView
@@ -43,7 +44,7 @@
                     android:id="@+id/tvTimlineDescription"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                     android:textSize="18sp"
-                    android:text="Drinking Soda"
+                    android:text="Drinking Soda and camping"
                     android:layout_height="wrap_content"/>
         </FrameLayout>
 
