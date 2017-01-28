@@ -56,7 +56,7 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter_detail;
 
 
-    String [] suggestions={"cairo","luxor","fayoum","aswan","alexandria","giza","shebin elkom"};
+    String [] suggestions={"cairo","luxor","fayoum","aswan","alexandria","giza","sharm elshikh","sinai"};
 
     private RecyclerView recyclerView;
     private TextView text_empty_search;
@@ -68,6 +68,7 @@ public class SearchActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Search");
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
         searchView.setVoiceSearch(false);

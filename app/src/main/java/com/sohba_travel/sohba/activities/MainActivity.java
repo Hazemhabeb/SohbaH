@@ -1,5 +1,14 @@
 package com.sohba_travel.sohba.Activities;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -24,18 +33,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.sohba_travel.sohba.HomeFragment;
-import com.sohba_travel.sohba.Intro.Intro;
+import com.sohba_travel.sohba.intro.Intro;
 import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.R;
+import com.sohba_travel.sohba.RecentFragment;
 import com.sohba_travel.sohba.UI.SohbaTextView;
 
 import java.util.ArrayList;
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int mSelectedId;
     private int[] tabIcons = {
             R.drawable.ic_home,
-            R.drawable.ic_featured,
             R.drawable.ic_recent
     };
 
@@ -192,15 +193,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-//        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-//        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(), "");
-//        adapter.addFragment(new HomeFragment(), "");
-//        adapter.addFragment(new HomeFragment(), "");
+        adapter.addFragment(new RecentFragment(), "");
         viewPager.setAdapter(adapter);
     }
 

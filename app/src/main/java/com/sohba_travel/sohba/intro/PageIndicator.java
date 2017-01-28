@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sohba_travel.sohba.Intro;
+package com.sohba_travel.sohba.intro;
 
 
 import android.support.v4.view.ViewPager;

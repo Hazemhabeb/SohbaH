@@ -1,5 +1,11 @@
 package com.sohba_travel.sohba.Activities;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -14,14 +20,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.sohba_travel.sohba.Intro.Intro;
 import com.sohba_travel.sohba.MyTripsFragment;
 import com.sohba_travel.sohba.R;
+import com.sohba_travel.sohba.intro.Intro;
 
 import java.util.ArrayList;
 import java.util.List;

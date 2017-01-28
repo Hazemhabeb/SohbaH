@@ -25,9 +25,7 @@ import android.view.ViewGroup;
 
 import com.sohba_travel.sohba.Activities.AddTrip;
 import com.sohba_travel.sohba.Activities.SearchActivity;
-import com.sohba_travel.sohba.Adapters.CitiesAdapter;
 import com.sohba_travel.sohba.Adapters.TripAdapter;
-import com.sohba_travel.sohba.Models.City;
 import com.sohba_travel.sohba.Models.NewUserHost;
 import com.sohba_travel.sohba.Models.Timeline;
 import com.sohba_travel.sohba.Models.Trip;
@@ -43,10 +41,9 @@ import butterknife.OnClick;
  * Created by M on 11/21/2016.
  */
 
-public class HomeFragment extends Fragment {
-    private RecyclerView.Adapter mTripAdapter,mCitiesAdapter;
+public class RecentFragment extends Fragment {
+    private RecyclerView.Adapter mAdapter;
     private List<Trip> mContentItems = new ArrayList<>();
-    private List<City> mCityItems = new ArrayList<>();
     HashMap<String, Timeline> timelineHashMap = new HashMap<>();
 
     // firebase to show only vertifed trips
@@ -54,14 +51,14 @@ public class HomeFragment extends Fragment {
     private FirebaseUser mFirebaseUser;
     private static String userType;
 
-    public HomeFragment() {
+    public RecentFragment() {
         // Required empty public constructor
     }
 
 
-    public static HomeFragment newInstance() {
+    public static RecentFragment newInstance() {
         Bundle args = new Bundle();
-        HomeFragment fragment = new HomeFragment();
+        RecentFragment fragment = new RecentFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,7 +71,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_fragment, container, false);
+        View view = inflater.inflate(R.layout.recent_fragment, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -115,37 +112,15 @@ public class HomeFragment extends Fragment {
         mFirebaseDatabaseReference.addValueEventListener(postListener);
 
 
-        final RecyclerView recyclerViewTrips = (RecyclerView) view.findViewById(R.id.rvCards);
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvCards);
         RecyclerView.LayoutManager
-                layoutManagerTrips = new LinearLayoutManager(getActivity());
-        recyclerViewTrips.setLayoutManager(layoutManagerTrips);
-        recyclerViewTrips.setItemAnimator(new DefaultItemAnimator());
-        mTripAdapter = new TripAdapter(mContentItems, getActivity());
-        recyclerViewTrips.setAdapter(mTripAdapter);
+                layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAdapter = new TripAdapter(mContentItems, getActivity());
+        recyclerView.setAdapter(mAdapter);
         prepareData();
 
-        final RecyclerView recyclerViewCityes = (RecyclerView) view.findViewById(R.id.rvCities);
-        LinearLayoutManager horizontalLayoutManagaer
-                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewCityes.setLayoutManager(horizontalLayoutManagaer);
-        recyclerViewCityes.setItemAnimator(new DefaultItemAnimator());
-        prepareCitesData();
-        mCitiesAdapter = new CitiesAdapter(mCityItems, getActivity());
-        recyclerViewCityes.setAdapter(mCitiesAdapter);
-
-
-
-    }
-
-    private void prepareCitesData() {
-        mCityItems.clear();
-        mCityItems.add(new City(R.drawable.ic_cairo,"Cairo"));
-        mCityItems.add(new City(R.drawable.ic_luxor,"Luxor"));
-        mCityItems.add(new City(R.drawable.ic_aswan,"Aswan"));
-        mCityItems.add(new City(R.drawable.ic_fayoum,"Fayoum"));
-        mCityItems.add(new City(R.drawable.ic_alex,"Alexandria"));
-        mCityItems.add(new City(R.drawable.ic_sharm_elshikh,"Sharm Elshikh"));
-        mCityItems.add(new City(R.drawable.ic_sinai,"Sinai"));
 
     }
 
@@ -185,7 +160,7 @@ public class HomeFragment extends Fragment {
 //                trip.timelineHashMap = timelineHashMap;
                 mContentItems.add(trip);
 
-                mTripAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
 
             }
 

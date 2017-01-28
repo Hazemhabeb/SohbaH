@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.Intro;
+package com.sohba_travel.sohba.intro;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -17,8 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sohba_travel.sohba.R;
 import com.sohba_travel.sohba.Activities.Login;
+import com.sohba_travel.sohba.R;
 
 
 public class Intro extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class Intro extends AppCompatActivity {
 
         viewPager.setAdapter(new ViewPagerAdapter(R.array.icons, R.array.titles, R.array.hints));
 
-        CirclePageIndicator mIndicator  = (CirclePageIndicator) findViewById(R.id.indicator);
+        com.sohba_travel.sohba.intro.CirclePageIndicator mIndicator  = (com.sohba_travel.sohba.intro.CirclePageIndicator) findViewById(R.id.indicator);
         mIndicator.setViewPager(viewPager);
 
 

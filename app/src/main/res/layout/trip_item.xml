@@ -5,6 +5,7 @@
                                     android:id="@+id/tripCard"
                                     app:cardBackgroundColor="#f3f3f3"
                                     android:clickable="true"
+                                    android:layout_margin="8dp"
                                     android:foreground="?attr/selectableItemBackground"
                                     android:layout_height="wrap_content">
 

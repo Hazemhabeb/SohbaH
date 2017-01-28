@@ -1,4 +1,4 @@
-package com.sohba_travel.sohba.Intro;
+package com.sohba_travel.sohba.intro;
 
 import android.content.Context;
 import android.graphics.Typeface;
